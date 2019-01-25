@@ -1,0 +1,13 @@
+<div id="registrationDiv" class="mainContainer  d-flex justify-content-center">
+  <div class="card my_card">
+    <div class="col-md-12 col-md-offset-3" id="logreg">
+      <button *ngIf="start===false" type="button" class="btn btn-primary" (click)="startRegisterProcess()">Register</button>
+
+      <form class="form-horizontal">
+        <div *ngIf="start===true">
+          <app-registration-form (registrationExecuted)="register($event)" [formFields]="formFields"></app-registration-form>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
