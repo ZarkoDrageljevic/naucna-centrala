@@ -5,7 +5,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 import java.util.List;
 
-public interface BookRepository extends ElasticsearchRepository<IndexUnit, String> {
+public interface PaperRepository extends ElasticsearchRepository<IndexUnit, String> {
 
     List<IndexUnit> findByTitle(String title);
 

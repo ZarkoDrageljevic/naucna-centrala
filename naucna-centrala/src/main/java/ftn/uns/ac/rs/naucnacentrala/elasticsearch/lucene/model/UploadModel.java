@@ -20,6 +20,16 @@ public class UploadModel {
 
     private MultipartFile[] files;
 
+    private String apstrakt;
+
+    public String getApstrakt() {
+        return apstrakt;
+    }
+
+    public void setApstrakt(String apstrakt) {
+        this.apstrakt = apstrakt;
+    }
+
     public String getAuthorName() {
         return authorName;
     }
@@ -88,4 +98,5 @@ public class UploadModel {
                 ", files=" + Arrays.toString(files) +
                 '}';
     }
+
 }

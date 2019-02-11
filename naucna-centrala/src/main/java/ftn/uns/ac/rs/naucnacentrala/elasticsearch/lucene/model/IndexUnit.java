@@ -2,14 +2,12 @@ package ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Setting;
+import org.springframework.data.elasticsearch.annotations.*;
 
 
-@Document(indexName = "naucnacentrala", type = "book")
+@Document(indexName = "naucnacentrala", type = "paper")
 @Setting(settingPath = "/settings.json")
+@Mapping(mappingPath = "/mappings.json")
 public class IndexUnit {
 
     public static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -36,6 +34,18 @@ public class IndexUnit {
     @Field(type = FieldType.Text, store = true)
     private String scienceField;
 
+    private String highlights;
+
+    @Field(type = FieldType.Text, store = true)
+    private String apstract;
+
+    public String getHighlights() {
+        return highlights;
+    }
+
+    public void setHighlights(String highlights) {
+        this.highlights = highlights;
+    }
 
     public String getAuthorName() {
         return authorName;
@@ -109,4 +119,11 @@ public class IndexUnit {
         this.filedate = filedate;
     }
 
+    public String getApstract() {
+        return apstract;
+    }
+
+    public void setApstract(String apstract) {
+        this.apstract = apstract;
+    }
 }

@@ -1,0 +1,42 @@
+{
+  "properties": {
+    "filename": {
+      "type": "keyword"
+    },
+    "magazine": {
+      "type": "keyword"
+    },
+    "title": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    },
+    "apstract": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    },
+    "keywords": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    },
+    "scienceField": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    },
+    "text": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    },
+    "authorName": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    },
+    "authorLastName": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    },
+    "highlights": {
+      "type": "text",
+      "analyzer": "serbian_analyzer"
+    }
+  }
+}
