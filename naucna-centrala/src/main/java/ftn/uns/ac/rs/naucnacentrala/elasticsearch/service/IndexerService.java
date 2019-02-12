@@ -1,9 +1,11 @@
 package ftn.uns.ac.rs.naucnacentrala.elasticsearch.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ftn.uns.ac.rs.naucnacentrala.configuration.StorageProperties;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.indexing.handlers.DocumentHandler;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.indexing.handlers.PDFHandler;
+import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model.Authors;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model.IndexUnit;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model.UploadModel;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.repository.PaperRepository;
@@ -20,6 +22,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 
 @Service
@@ -50,11 +53,13 @@ public class IndexerService {
                 IndexUnit indexUnit = getHandler(fileName).getIndexUnit(new File(fileName));
                 indexUnit.setKeywords(model.getKeywords());
                 indexUnit.setAuthorName(model.getAuthorName());
-                indexUnit.setAuthorLastName(model.getAuthorLastName());
                 indexUnit.setMagazine(model.getMagazine());
                 indexUnit.setScienceField(model.getScientificField());
                 indexUnit.setFilename(fileName);
                 indexUnit.setApstract(model.getApstrakt());
+                ObjectMapper objectMapper = new ObjectMapper();
+                List<Authors> authors = (List<Authors>) objectMapper.readValue(model.getAuthors(), Object.class);
+                indexUnit.setAuthors(authors);
                 add(indexUnit);
             }
         }

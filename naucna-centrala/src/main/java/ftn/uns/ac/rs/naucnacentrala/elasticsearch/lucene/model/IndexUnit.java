@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import java.util.List;
+
 
 @Document(indexName = "naucnacentrala", type = "paper")
 @Setting(settingPath = "/settings.json")
@@ -28,56 +30,17 @@ public class IndexUnit {
     @Field(type = FieldType.Text, store = true)
     private String authorName;
     @Field(type = FieldType.Text, store = true)
-    private String authorLastName;
-    @Field(type = FieldType.Text, store = true)
     private String magazine;
     @Field(type = FieldType.Text, store = true)
     private String scienceField;
 
     private String highlights;
 
+    @Field(type = FieldType.Nested, store = true)
+    private List<Authors> authors;
+
     @Field(type = FieldType.Text, store = true)
     private String apstract;
-
-    public String getHighlights() {
-        return highlights;
-    }
-
-    public void setHighlights(String highlights) {
-        this.highlights = highlights;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public String getAuthorLastName() {
-        return authorLastName;
-    }
-
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
-    }
-
-    public String getMagazine() {
-        return magazine;
-    }
-
-    public void setMagazine(String magazine) {
-        this.magazine = magazine;
-    }
-
-    public String getScienceField() {
-        return scienceField;
-    }
-
-    public void setScienceField(String scienceField) {
-        this.scienceField = scienceField;
-    }
 
     public String getText() {
         return text;
@@ -117,6 +80,46 @@ public class IndexUnit {
 
     public void setFiledate(String filedate) {
         this.filedate = filedate;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getMagazine() {
+        return magazine;
+    }
+
+    public void setMagazine(String magazine) {
+        this.magazine = magazine;
+    }
+
+    public String getScienceField() {
+        return scienceField;
+    }
+
+    public void setScienceField(String scienceField) {
+        this.scienceField = scienceField;
+    }
+
+    public String getHighlights() {
+        return highlights;
+    }
+
+    public void setHighlights(String highlights) {
+        this.highlights = highlights;
+    }
+
+    public List<Authors> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Authors> authors) {
+        this.authors = authors;
     }
 
     public String getApstract() {

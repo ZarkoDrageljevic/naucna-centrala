@@ -2,6 +2,7 @@ package ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.search;
 
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.indexing.handlers.DocumentHandler;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.indexing.handlers.PDFHandler;
+import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model.Authors;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model.IndexUnit;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model.ResultData;
 import ftn.uns.ac.rs.naucnacentrala.elasticsearch.repository.PaperRepository;
@@ -69,9 +70,9 @@ public class ResultRetriever {
                 resultData.setMagazine((String) searchHit.getSource().get("magazine"));
                 resultData.setText((String) searchHit.getSource().get("text"));
                 resultData.setAuthorName((String) searchHit.getSource().get("authorName"));
-                resultData.setAuthorLastName((String) searchHit.getSource().get("authorLastName"));
                 resultData.setScienceField((String) searchHit.getSource().get("scienceField"));
                 resultData.setApstract((String) searchHit.getSource().get("apstract"));
+                resultData.setAuthors((List<Authors>) searchHit.getSource().get("authors"));
                 if (searchHit.getHighlightFields() != null) {
                     resultData.setHighlights(extractHighlights(searchHit));
                 }

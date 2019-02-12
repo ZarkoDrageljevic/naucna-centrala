@@ -3,16 +3,13 @@ package ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class UploadModel {
-
-    private String title;
 
     private String keywords;
 
     private String authorName;
-
-    private String authorLastName;
 
     private String magazine;
 
@@ -21,6 +18,16 @@ public class UploadModel {
     private MultipartFile[] files;
 
     private String apstrakt;
+
+    private String authors;
+
+    public String getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
 
     public String getApstrakt() {
         return apstrakt;
@@ -36,14 +43,6 @@ public class UploadModel {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
-    }
-
-    public String getAuthorLastName() {
-        return authorLastName;
-    }
-
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
     }
 
     public String getMagazine() {
@@ -62,13 +61,6 @@ public class UploadModel {
         this.scientificField = scientificField;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getKeywords() {
         return keywords;
@@ -89,10 +81,8 @@ public class UploadModel {
     @Override
     public String toString() {
         return "UploadModel{" +
-                "title='" + title + '\'' +
                 ", keywords='" + keywords + '\'' +
                 ", authorName='" + authorName + '\'' +
-                ", authorLastName='" + authorLastName + '\'' +
                 ", magazine='" + magazine + '\'' +
                 ", scientificField='" + scientificField + '\'' +
                 ", files=" + Arrays.toString(files) +

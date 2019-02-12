@@ -30,13 +30,20 @@
       "type": "text",
       "analyzer": "serbian_analyzer"
     },
-    "authorLastName": {
-      "type": "text",
-      "analyzer": "serbian_analyzer"
-    },
     "highlights": {
       "type": "text",
       "analyzer": "serbian_analyzer"
+    },
+    "authors": {
+      "type": "nested",
+      "properties": {
+        "firstname": {
+          "type": "text"
+        },
+        "lastname": {
+          "type": "text"
+        }
+      }
     }
   }
 }

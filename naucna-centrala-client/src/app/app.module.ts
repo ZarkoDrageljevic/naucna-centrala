@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -12,6 +12,11 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TokenInterceptorServiceService } from './services/token-interceptor-service.service';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
+import { UploadMagazineComponent } from './components/upload-magazine/upload-magazine.component';
+import { SearchComponent } from './components/search/search.component';
+import { SearchService } from './services/search.service';
+import { UploadMagazineService } from './services/upload-magazine.service';
+import { DownloadFile } from './model/download-file';
 
 
 const appRoutes: Routes = [
@@ -19,7 +24,9 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'home', component: HomeComponent },
-  { path: '**', component: NotFoundComponent },
+  { path: 'upload', component: UploadMagazineComponent },
+  { path: 'search', component: SearchComponent },
+  { path: '**', component: NotFoundComponent }
 ]
 
 
@@ -30,13 +37,15 @@ const appRoutes: Routes = [
     RegistrationComponent,
     HomeComponent,
     LoginComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    UploadMagazineComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule, 
+    HttpClientModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
@@ -45,7 +54,9 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorServiceService,
       multi: true
-    }
+    },
+    SearchService,
+    UploadMagazineService
   ],
   bootstrap: [AppComponent]
 })

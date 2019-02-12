@@ -1,0 +1,133 @@
+<div class="flex-container" style="justify-content: center;">
+  <button class="btn btn-primary" (click)="searchTypeSimple()">Match</button>
+  <button class="btn btn-warning" (click)="searchTypePhraze()">Phraze</button>
+  <button class="btn btn-success" (click)="searchTypeBoolean()">Boolean</button>
+</div>
+<label>Search Type: {{searchType}}</label>
+<div class="card">
+  <div *ngIf="searchType=='simple' || searchType=='phraze'" class="flex-container">
+    <form (ngSubmit)="simpleForm()" [formGroup]="simpleQueryForm" class="navbar-form mr-auto" role="search" style="width: 100%">
+      <div class="flex-container">
+        <label class="" for="fieldsearch">Search In:
+        </label>
+
+        <div>
+          <select class="form-control" formControlName="field" id="fieldsearch">
+            <option disabled>Select type</option>
+            <option [value]=0>text</option>
+            <option [value]=1>title</option>
+            <option [value]=2>abstract</option>
+            <option [value]=3>magazine</option>
+            <option [value]=4>keywords</option>
+            <option [value]=5>scienceField</option>
+            <option [value]=6>Author</option>
+          </select>
+        </div>
+
+        <div style="flex-basis: 500px">
+          <input class="form-control" formControlName="value" name="q" placeholder="Search" type="text">
+        </div>
+        <div class="input-group-btn">
+          <button class="btn btn-primary" type="submit">
+            Search <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="searchType=='boolean'" class="flex-container">
+    <form (ngSubmit)="searchBoolean()" [formGroup]="advancedQueryForm" class="navbar-form mr-auto" role="search" style="width: 100%;">
+      <div class="flex-container">
+
+        <label for="fieldsearch">Search In:
+        </label>
+        <div>
+          <select class="form-control" formControlName="field1" id="fieldsearch">
+            <option disabled>Select type</option>
+            <option [value]=0>Text</option>
+            <option [value]=1>Title</option>
+            <option [value]=2>Abstract</option>
+            <option [value]=3>Magazine</option>
+            <option [value]=4>Keywords</option>
+            <option [value]=5>ScienceField</option>
+            <option [value]=6>Author</option>
+
+          </select>
+        </div>
+        <input class="form-control" formControlName="value1" name="q" placeholder="Search" type="text">
+
+      </div>
+
+      <div class="input-group">
+        <label for="operation">Operation:
+        </label>
+        <div class="flex-container">
+          <div>
+            <select class="form-control" formControlName="operation" id="operation">
+              <option disabled>Select type</option>
+              <option [value]=0>AND</option>
+              <option [value]=1>OR</option>
+              <option [value]=2>NOT</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group flex-container">
+        <label for="fieldsearch2">Search In:
+        </label>
+
+        <div>
+          <select class="form-control" formControlName="field2" id="fieldsearch2">
+            <option disabled>Select type</option>
+            <option [value]=0>Text</option>
+            <option [value]=1>Title</option>
+            <option [value]=2>Abstract</option>
+            <option [value]=3>Magazine</option>
+            <option [value]=4>Keywords</option>
+            <option [value]=5>ScienceField</option>
+            <option [value]=6>Author</option>
+
+          </select>
+        </div>
+
+        <input class="form-control" formControlName="value2" name="q" placeholder="Search" type="text">
+
+      </div>
+      <div class="input-group-btn">
+        <button class="btn btn-primary" type="submit"> Search
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="showData" class="flex-container" style="margin-top:10px;width: 100%;">
+  <div *ngIf="showData.lenght!=0" style="width: 100%">
+    <div *ngFor="let paper of showData" class="card" style="width: 100%">
+      <div class="card-header"> <button class="btn btn-warning" (click)="download(paper.location)">Download</button>Clanak:</div>
+      <div class="card-body">
+        <div>Title: {{paper.title}}</div>
+        <hr>
+        <div>Author: {{paper.authorName}}</div>
+        <hr>
+        <div *ngIf="paper.authors">
+          Coautors:
+          <div *ngFor="let coauth of paper.authors" class="card" style="width: 100%">
+            <div> {{coauth.firstname}} {{coauth.lastname}}</div>
+          </div>
+        </div>
+        <hr>
+        <div>ScienceField: {{paper.scienceField}}</div>
+        <hr>
+        <div>Keywords: {{paper.keywords}}</div>
+        <hr>
+        <div>abstract: {{paper.apstract}}</div>
+        <hr>
+        <div>highlight: {{paper.highlight}}</div>
+        <hr>
+        <div>magazine: {{paper.magazine}}</div>
+      </div>
+    </div>
+  </div>
+</div>

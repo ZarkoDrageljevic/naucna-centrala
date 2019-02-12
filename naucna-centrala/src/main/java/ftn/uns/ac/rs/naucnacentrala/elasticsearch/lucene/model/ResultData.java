@@ -1,5 +1,7 @@
 package ftn.uns.ac.rs.naucnacentrala.elasticsearch.lucene.model;
 
+import java.util.List;
+
 public final class ResultData {
 
     private String title;
@@ -8,26 +10,26 @@ public final class ResultData {
     private String highlight;
     private String filedate;
     private String authorName;
-    private String authorLastName;
     private String magazine;
     private String scienceField;
     private String text;
     private String apstract;
+    private List<Authors> authors;
 
     public ResultData(String title, String keywords, String location,
                       String highlight, String filedate, String authorName,
-                      String authorLastName, String magazine, String scienceField, String text, String apstract) {
+                      String magazine, String scienceField, String text, String apstract, List<Authors> authors) {
         this.title = title;
         this.keywords = keywords;
         this.location = location;
         this.highlight = highlight;
         this.filedate = filedate;
         this.authorName = authorName;
-        this.authorLastName = authorLastName;
         this.magazine = magazine;
         this.scienceField = scienceField;
         this.text = text;
         this.apstract = apstract;
+        this.authors = authors;
     }
 
     public ResultData() {
@@ -41,11 +43,19 @@ public final class ResultData {
         this.highlight = index.getHighlights();
         this.filedate = index.getFiledate();
         this.authorName = index.getAuthorName();
-        this.authorLastName = index.getAuthorLastName();
         this.magazine = index.getMagazine();
         this.scienceField = index.getScienceField();
         this.text = index.getText();
         this.apstract = index.getApstract();
+        this.authors = index.getAuthors();
+    }
+
+    public List<Authors> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Authors> authors) {
+        this.authors = authors;
     }
 
     public String getApstract() {
@@ -70,14 +80,6 @@ public final class ResultData {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
-    }
-
-    public String getAuthorLastName() {
-        return authorLastName;
-    }
-
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
     }
 
     public String getMagazine() {

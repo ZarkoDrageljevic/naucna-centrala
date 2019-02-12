@@ -33,6 +33,9 @@ public class PDFHandler extends DocumentHandler {
             String keywords = "" + info.getKeywords();
             retVal.setKeywords(keywords);
 
+            String author = "" + info.getAuthor();
+            retVal.setAuthorName(author);
+
             retVal.setFilename(file.getCanonicalPath());
 
             String modificationDate = DateTools.dateToString(new Date(file.lastModified()), DateTools.Resolution.DAY);
