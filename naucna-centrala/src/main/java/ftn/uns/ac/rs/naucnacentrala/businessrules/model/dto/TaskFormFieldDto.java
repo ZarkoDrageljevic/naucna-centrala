@@ -4,17 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.camunda.bpm.engine.form.FormField;
-
-import java.util.List;
+import org.camunda.bpm.engine.rest.dto.VariableValueDto;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class RegistrationFormDto {
-    String taskId;
-    List<FormField> formFields;
-    String processInstanceId;
+public class TaskFormFieldDto {
+
+    private String name;
+
+    private VariableValueDto value;
 
 }

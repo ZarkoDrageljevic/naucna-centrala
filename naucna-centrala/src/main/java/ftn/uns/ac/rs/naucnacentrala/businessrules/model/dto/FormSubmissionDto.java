@@ -1,39 +1,20 @@
 package ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
-public class FormSubmissionDto implements Serializable{
-	
-	String fieldId;
-	String fieldValue;
-	
-	
-	public FormSubmissionDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	public FormSubmissionDto(String fieldId, String fieldValue) {
-		super();
-		this.fieldId = fieldId;
-		this.fieldValue = fieldValue;
-	}
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+public class FormSubmissionDto implements Serializable {
 
-	public String getFieldId() {
-		return fieldId;
-	}
+    String fieldId;
+    String fieldValue;
 
-	public void setFieldId(String fieldId) {
-		this.fieldId = fieldId;
-	}
-
-	public String getFieldValue() {
-		return fieldValue;
-	}
-
-	public void setFieldValue(String fieldValue) {
-		this.fieldValue = fieldValue;
-	}
-	
-	
 }

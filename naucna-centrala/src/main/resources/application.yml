@@ -1,9 +1,52 @@
 spring:
   application:
     name: naucna-centrala
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/naucnacentrala_db
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+    username: root
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    database: mysql
+    show_sql: false
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls.enable: true
+
+    username: scdummyemail@gmail.com
+    password: SCPUSTIMEdaProdjem1
+
+camunda.bpm:
+  admin-user:
+    id: admin
+    password: admin
+    firstName: Admin
+  filter:
+    create: All tasks
+
+camunda.bpm.webapp.index-redirect-enabled: false
+
+camunda-rest-base-path: http://localhost:8080/rest
+
 
 server:
   port: 8080
+
 
 storage:
   location: src/main/resources/files/pdf_files

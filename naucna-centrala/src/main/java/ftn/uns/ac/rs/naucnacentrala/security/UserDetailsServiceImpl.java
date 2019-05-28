@@ -25,13 +25,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .commaSeparatedStringToAuthorityList("ROLE_" + JwtConfig.USER);
         return new User("micro", "micro", grantedAuthorities);
 //        // hard coding the users. All passwords must be encoded.
-//        final List<AppUser> users = Arrays.asList(
-//                new AppUser(1, "omar", encoder.encode("12345"), "USER"),
-//                new AppUser(2, "admin", encoder.encode("12345"), "ADMIN")
+//        final List<ApplicationUser> users = Arrays.asList(
+//                new ApplicationUser(1, "omar", encoder.encode("12345"), "USER"),
+//                new ApplicationUser(2, "admin", encoder.encode("12345"), "ADMIN")
 //        );
 //
 //
-//        for (AppUser appUser : users) {
+//        for (ApplicationUser appUser : users) {
 //            if (appUser.getUsername().equals(username)) {
 //
 //                // Remember that Spring needs roles to be in this format: "ROLE_" + userRole (i.e. "ROLE_ADMIN")
@@ -50,12 +50,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     // A (temporary) class represent the user saved in the database.
-    private static class AppUser {
+    private static class ApplicationUser {
         private Integer id;
         private String username, password;
         private String role;
 
-        public AppUser(Integer id, String username, String password, String role) {
+        public ApplicationUser(Integer id, String username, String password, String role) {
             this.id = id;
             this.username = username;
             this.password = password;
