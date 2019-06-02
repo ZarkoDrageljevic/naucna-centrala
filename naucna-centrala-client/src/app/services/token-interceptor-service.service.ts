@@ -1,6 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {LoggedUtils} from '../utils/loggedUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class TokenInterceptorServiceService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({
       setHeaders: {
-        'Auth': "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6YXJrbyIsIkFVVEgiOiJNSUNST1NFUlZJQ0VTIiwiaWF0IjoxNTQ4MjgwOTU5LCJleHAiOjE1Nzk4Mzc5MTF9.O-06aCFZUDkLi9LqUEaUusyWOwP0SbjVjm2xSZNI0cY"
+        // 'JWToken': "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJaYXJrbyIsImNyZWF0ZWQiOjE1NTkyNTQ3MTI0ODgsImV4cCI6MTU1OTg1OTUxMn0.qew-0cPX1gGq319YIelnKIrjiha4x7_uroiJjvRdHrMtBpY2w050Q9WxJfZ0C1JRp8wOULS5Oiy6TNK8u6AZbw"
+        'JWToken': LoggedUtils.getToken()
       }
     });
 

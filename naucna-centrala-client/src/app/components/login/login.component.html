@@ -1,3 +1,15 @@
-<p>
-  login works!
-</p>
+<div class="row">
+  <div class="col-md-4"></div>
+  <form class="col-md-4 form" (ngSubmit)="login()" #loginForm="ngForm">
+    <h2 class="form-heading">Login</h2>
+
+    <label>Username</label>
+    <input type="text" class="form-control" [(ngModel)]="user.username" name="username" required autofocus>
+    <label>Password</label>
+    <input type="password" class="form-control" [(ngModel)]="user.password" name="password" required>
+    <br />
+    <button id="loginBtn" [disabled]="loginForm.form.invalid" class="btn btn-lg btn-primary btn-block"
+            type="submit">Submit
+      </button>
+  </form>
+</div>

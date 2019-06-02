@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-2"></div>
+  <form class="col-md-4 form" (ngSubmit)="create()" #paperForm="ngForm">
+    <h2 class="form-heading">Paper</h2>
+
+    <label>Title</label>
+    <input type="text" class="form-control" [(ngModel)]="paper.title" name="title" required autofocus>
+    <label>Abstract</label>
+    <textarea class="form-control" [(ngModel)]="paper.paperAbstract" name="abstract" required></textarea>
+    <label>Keywords</label>
+    <input type="text" class="form-control" [(ngModel)]="paper.keywords" name="keywords" required autofocus>
+    <label>Science field</label>
+    <select name="scienceField" class="form-control" [(ngModel)]="paper.scienceField" required>
+      <option *ngFor="let field of scienceFields" [ngValue]="field">{{field.title}}</option>
+    </select>
+    <label>Upload pdf</label>
+    <input type="file" class="form-control-file" (change)="fileChange($event)" accept=".pdf">
+    <input type="hidden" [(ngModel)]="file" name="file" required>
+    <br />
+    <button [disabled]="paperForm.form.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Submit
+      paper</button>
+  </form>
+
+  <div class="col-md-4">
+    <form class="form" (ngSubmit)="insertNewCoAuthor()" #coauthorForm="ngForm">
+      <h2 class="form-heading">Coauthors</h2>
+
+      <label>Firstname</label>
+      <input type="text" class="form-control" [(ngModel)]="coauthor.firstname" name="firstName" required>
+      <label>Lastname</label>
+      <input type="text" class="form-control" [(ngModel)]="coauthor.lastname" name="lastName" required>
+      <label>Address</label>
+      <input type="text" class="form-control" [(ngModel)]="coauthor.address" name="address" address required>
+      <br />
+      <button [disabled]="coauthorForm.form.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Add
+        coauthor</button>
+    </form>
+    <br>
+    <ul class="list-group" style="border: black; background-color: lightgray">
+      <li *ngFor="let coauthor of paper.coauthors; let i = index" class="list-group-item" style="background-color: lightblue">
+        <p>{{i+1}}. Author: {{coauthor.firstname}} {{coauthor.lastname}} <span
+          class="float-right fa fa-remove icon-pad pointer" (click)="removeCoauthor(coauthor)">
+          </span></p>
+      </li>
+    </ul>
+  </div>
+</div>

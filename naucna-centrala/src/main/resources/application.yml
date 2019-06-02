@@ -16,7 +16,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     database: mysql
-    show_sql: false
+    show_sql: true
     hibernate:
       ddl-auto: update
 
@@ -50,3 +50,8 @@ server:
 
 storage:
   location: src/main/resources/files/pdf_files
+
+token:
+  header: Bearer
+  secret: sssshhhh!
+  expiration: 604800

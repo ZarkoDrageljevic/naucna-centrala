@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-4"></div>
+  <form class="col-md-4 form" (ngSubmit)="choose()" #magazineForm="ngForm">
+    <h2 class="form-heading">Choose Magazine</h2>
+    <select name="magazine" class="form-control" [(ngModel)]="magazine" required>
+      <option *ngFor="let magazine of magazines" [ngValue]="magazine">{{magazine.name}}</option>
+    </select>
+    <br>
+    <button id="signinButton" [disabled]="magazineForm.form.invalid" class="btn btn-lg btn-primary btn-block"
+            type="submit">Choose Magazine</button>
+  </form>
+</div>

@@ -24,10 +24,9 @@ import java.util.stream.Collectors;
 @Service
 public class ProcessService {
 
+    private final RestTemplate restTemplate;
     @Value("${camunda-rest-base-path}")
     private String basePath;
-
-    private final RestTemplate restTemplate;
 
     public ProcessService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -69,6 +68,20 @@ public class ProcessService {
         final List<TaskFormFieldDto> fieldDtos = res.entrySet().stream().map(el -> new TaskFormFieldDto(el.getKey(), el.getValue())).collect(Collectors.toList());
         return new TaskFormDataDto(taskId, fieldDtos);
     }
+
+//    public void setVariable(String processId, String variable) {
+//        VariableValueDto variableValueDto = new VariableValueDto();
+//        variableValueDto.setType("String");
+//        variableValueDto.setValue(variable);
+//
+//        String url = String.format(basePath + CamundaConstants.GET_VARIABLE, processId, "userId");
+//        String urlProces = String.format(basePath + CamundaConstants.GET_PROCESS, "PaperSubmission");
+//
+//
+//        Object processInstanceDto = restTemplate.getForObject(urlProces, Object.class);
+//        restTemplate.put(url, variableValueDto);
+//        String string = (String) getVariable("PaperSubmission", "userId");
+//    }
 
     public void submitTaskForm(String taskId, List<TaskFormFieldDto> formFieldDtos) {
         String url = String.format(basePath + CamundaConstants.SUBMIT_FORM, taskId);

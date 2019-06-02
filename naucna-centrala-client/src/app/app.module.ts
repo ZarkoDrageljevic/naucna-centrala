@@ -17,29 +17,53 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchService } from './services/search.service';
 import { UploadMagazineService } from './services/upload-magazine.service';
 import { DownloadFile } from './model/download-file';
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TaskComponent } from './components/task/task.component';
+import {TaskService} from './services/task.service';
+import {UserService} from './services/user.service';
+import {PaperComponent} from './components/paper/paper.component';
+import { MagazineListComponent } from './components/magazine-list/magazine-list.component';
+import {MagazineService} from './services/magazine.service';
+import { NavbarComponent } from './navbar/navbar.component';
+import {AlreadyLoggedInGuard} from './guards/already-logged-in.guard';
+import {OnlyLoggedInGuard} from './guards/only-logged-in.guard';
+import { PaperSubmissionComponent } from './components/paper-submission/paper-submission.component';
+import {ScienceField} from './model/science-field';
+import {ScienceFieldService} from './services/science-field.service';
+
 
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'login', component: LoginComponent , canActivate: [AlreadyLoggedInGuard]},
+  { path: 'task', component: TaskComponent , canActivate: [OnlyLoggedInGuard]},
   { path: 'registration', component: RegistrationComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'upload', component: UploadMagazineComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'home', component: HomeComponent , canActivate: [OnlyLoggedInGuard]},
+  { path: 'upload', component: UploadMagazineComponent , canActivate: [OnlyLoggedInGuard]},
+  { path: 'search', component: SearchComponent , canActivate: [OnlyLoggedInGuard]},
+  { path: 'paper', component: PaperComponent , canActivate: [OnlyLoggedInGuard] },
+  { path: 'magazine/choose/:taskId', component: MagazineListComponent , canActivate: [OnlyLoggedInGuard]},
+  { path: 'paper/submit/:taskId', component: PaperSubmissionComponent , canActivate: [OnlyLoggedInGuard]},
   { path: '**', component: NotFoundComponent }
-]
+];
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
+    PaperComponent,
     RegistrationComponent,
     HomeComponent,
     LoginComponent,
     RegistrationFormComponent,
     UploadMagazineComponent,
-    SearchComponent
+    SearchComponent,
+    TaskComponent,
+    MagazineListComponent,
+    NavbarComponent,
+    PaperSubmissionComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +71,12 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     ReactiveFormsModule,
-    HttpClientModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      positionClass: 'toast-bottom-right'
+    }),
   ],
   providers: [
     {
@@ -56,7 +85,11 @@ const appRoutes: Routes = [
       multi: true
     },
     SearchService,
-    UploadMagazineService
+    TaskService,
+    UserService,
+    UploadMagazineService,
+    MagazineService,
+    ScienceFieldService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,29 +1,44 @@
 export class LoggedUtils {
-
-    static getToken() {
-        if (this.isEmpty()) {
-            return '';
-        }
-        return localStorage.getItem('loggedUser');
+  static getId() {
+    if (this.isEmpty()) {
+      return null;
     }
+    return JSON.parse(localStorage.getItem('loggedUser')).id;
+  }
 
-    static setToken(token: string) {
-        localStorage.setItem("loggedUser", token);
+  static getToken() {
+    if (this.isEmpty()) {
+      return '';
     }
+    return localStorage.getItem('token');
+  }
 
-
-    static clearLocalStorage() {
-        localStorage.clear();
+  static getRole() {
+    if (this.isEmpty()) {
+      return null;
     }
+    return JSON.parse(localStorage.getItem('loggedUser')).role;
+  }
 
-    static isEmpty() {
-        return localStorage.getItem('loggedUser') === null;
-    }
+  static clearLocalStorage() {
+    localStorage.clear();
+  }
 
-    static getRole() {
-        if (this.isEmpty()) {
-            return null;
-        }
-        return localStorage.getItem('loggedUser');
-    }
+  static isEmpty() {
+    return localStorage.getItem('loggedUser') === null;
+  }
+
+  static getUsername() {
+    return JSON.parse(localStorage.getItem('loggedUser')).username;
+  }
+
+  static getUser() {
+    return JSON.parse(localStorage.getItem('loggedUser'));
+  }
+
+  static getLoggedUser() {
+    return localStorage.getItem('loggedUser');
+
+  }
+
 }

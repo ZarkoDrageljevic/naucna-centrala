@@ -5,10 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "app_user")
@@ -34,7 +34,6 @@ public class ApplicationUser {
     protected String password;
 
     @Column(name = "email", unique = true, nullable = false)
-    @Email
     protected String email;
 
     @Column(name = "firstname", nullable = true)
@@ -52,6 +51,9 @@ public class ApplicationUser {
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     protected UserRole role;
+
+    @ManyToMany(mappedBy = "subscriptions")
+    List<Magazine> subscribedMagazines;
 
 
 }

@@ -9,4 +9,5 @@ public class CamundaConstants {
     public static final String CREATE_USER = "/user/create";
     public static final String GET_VARIABLE = "/process-instance/%s/variables/%s";
     public static final String GET_TASK = "/task/%s";
+    public static final String GET_PROCESS = "/history/process-instance/%s";
 }
