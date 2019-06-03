@@ -1,14 +1,12 @@
 package ftn.uns.ac.rs.naucnacentrala.businessrules.controller;
 
+import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.TaskFormDataDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.process.ProcessService;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.utils.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.rest.dto.task.TaskDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +26,11 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
 
     }
+
+    @GetMapping("/{taskId}")
+    public ResponseEntity getRegisterForm(@PathVariable String taskId) {
+        final TaskFormDataDto taskFormData = processService.getTaskFormData(taskId);
+        return ResponseEntity.ok(taskFormData);
+    }
+
 }

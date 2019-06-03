@@ -2,6 +2,7 @@ package ftn.uns.ac.rs.naucnacentrala.businessrules.controller;
 
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.ApplicationUser;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.Paper;
+import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.PaperDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.PaperSubmissionDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.TaskFormFieldDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.ApplicationUserService;
@@ -10,6 +11,7 @@ import ftn.uns.ac.rs.naucnacentrala.businessrules.services.process.ProcessServic
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.utils.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.rest.dto.VariableValueDto;
+import org.camunda.bpm.engine.rest.dto.task.TaskDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -80,5 +82,40 @@ public class PaperSubmissionController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/task/{taskId}")
+    public ResponseEntity getPaperByTaskId(@PathVariable String taskId) {
+        final TaskDto task = processService.getTask(taskId);
+        final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
+
+        return ResponseEntity.ok(new PaperDto(paperService.findById(Long.parseLong(paperId))));
+    }
+
+    @PostMapping("/tvalidation/{taskId}")
+    public ResponseEntity register(@PathVariable String taskId, @RequestBody List<TaskFormFieldDto> formFieldDtos) {
+        processService.submitTaskForm(taskId, formFieldDtos);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("/reject/thematic/{taskId}")
+    public ResponseEntity rejectThematic(@PathVariable String taskId, @RequestPart("rejectionReason") String rejectionReason,
+                                        @RequestHeader String JWToken) {
+
+        final TaskDto task = processService.getTask(taskId);
+        final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
+
+        paperService.delete(Long.parseLong(paperId));
+
+        List<TaskFormFieldDto> formFieldDtos = new ArrayList<>();
+        TaskFormFieldDto taskFormFieldDto = new TaskFormFieldDto();
+        taskFormFieldDto.setName("rejectionReason");
+        VariableValueDto variableValueDto = new VariableValueDto();
+        variableValueDto.setValue(rejectionReason);
+        taskFormFieldDto.setValue(variableValueDto);
+        formFieldDtos.add(taskFormFieldDto);
+        processService.submitTaskForm(taskId, formFieldDtos);
+
+        return ResponseEntity.noContent().build();
+    }
 
 }

@@ -62,4 +62,11 @@ public class PaperService {
         return paperRepository.getOne(paperId) != null;
     }
 
+    public Paper findById(long paperId) {
+        return paperRepository.getOne(paperId);
+    }
+
+    public void delete(long parseLong) {
+        paperRepository.deleteById(parseLong);
+    }
 }

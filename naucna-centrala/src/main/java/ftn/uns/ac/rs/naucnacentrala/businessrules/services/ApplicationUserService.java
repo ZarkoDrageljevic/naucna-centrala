@@ -55,4 +55,8 @@ public class ApplicationUserService {
     public ApplicationUser findCurrentUser(String username) {
         return appUserRepository.findByUsername(username);
     }
+
+    public ApplicationUser findById(String editorId) {
+        return appUserRepository.getOne(Long.parseLong(editorId));
+    }
 }

@@ -21,6 +21,7 @@ public class RegistrationNotificationTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         final String username = (String) delegateExecution.getVariable("username");
         final ApplicationUser user = applicationUserService.findByUsername(username);
 

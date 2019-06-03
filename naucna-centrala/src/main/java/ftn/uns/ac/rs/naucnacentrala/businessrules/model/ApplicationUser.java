@@ -33,7 +33,7 @@ public class ApplicationUser {
     @Size(min = 3)
     protected String password;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", nullable = false)
     protected String email;
 
     @Column(name = "firstname", nullable = true)

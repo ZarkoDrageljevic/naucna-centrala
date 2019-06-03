@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-2"></div>
+  <form class="col-md-4 form" (ngSubmit)="submitRejection()" #rejectionForm="ngForm">
+    <h2 class="form-heading">Paper</h2>
+
+    <label>Rejection Reason</label>
+    <textarea class="form-control" [(ngModel)]="reason" name="reason" required></textarea>
+    <br />
+    <button [disabled]="rejectionForm.form.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Submit
+      paper</button>
+  </form>
+</div>

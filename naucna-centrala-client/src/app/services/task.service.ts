@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import {TaskModel} from '../model/task';
+import {CamundaTaskForm} from '../model/camunda-task-form';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +18,7 @@ export class TaskService {
     return this.http.get<TaskModel[]>(this.baseUrl);
   }
 
+  getFormData(taskId: string) {
+    return this.http.get<CamundaTaskForm>(`${this.baseUrl}/${taskId}`);
+  }
 }

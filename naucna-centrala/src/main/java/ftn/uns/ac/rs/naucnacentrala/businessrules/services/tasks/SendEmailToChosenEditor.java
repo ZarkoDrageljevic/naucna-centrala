@@ -10,14 +10,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class EmailRejectedPaperTask implements JavaDelegate {
+public class SendEmailToChosenEditor implements JavaDelegate {
     private final MailService mailService;
     private final ApplicationUserService applicationUserService;
+
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        final String username = (String) delegateExecution.getVariable("userId");
-        final ApplicationUser user = applicationUserService.findByUsername(username);
+        final String chosenEditor = (String) delegateExecution.getVariable("chosenEditor");
+        final ApplicationUser user = applicationUserService.findByUsername(chosenEditor);
 
-        mailService.sendMail(user.getEmail(), "Paper Rejected", "Paper is rejected");
+        mailService.sendMail(user.getEmail(), "New Paper Submition", "Paper Submited Choose Editors");
     }
 }

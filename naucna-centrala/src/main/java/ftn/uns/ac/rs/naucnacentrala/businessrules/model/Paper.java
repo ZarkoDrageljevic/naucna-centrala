@@ -28,7 +28,7 @@ public class Paper {
     @Column
     private String paperAbstract;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "paper_title")
     private String title;
 
     @ManyToOne

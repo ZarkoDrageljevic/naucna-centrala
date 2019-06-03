@@ -73,7 +73,7 @@ export class TaskComponent implements OnInit {
         this.router.navigate(['/paper/editor-review', task.id]);
         break;
       }
-      case 'EditorReviewOfReviews': {
+      case 'EditorReviewOfRevision': {
         this.router.navigate(['/paper/editor-reviews-review', task.id]);
         break;
 

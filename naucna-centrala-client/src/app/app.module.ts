@@ -31,6 +31,8 @@ import {OnlyLoggedInGuard} from './guards/only-logged-in.guard';
 import { PaperSubmissionComponent } from './components/paper-submission/paper-submission.component';
 import {ScienceField} from './model/science-field';
 import {ScienceFieldService} from './services/science-field.service';
+import { TvalidationComponent } from './components/tvalidation/tvalidation.component';
+import { RejectExplanationComponent } from './components/reject-explanation/reject-explanation.component';
 
 
 
@@ -45,6 +47,10 @@ const appRoutes: Routes = [
   { path: 'paper', component: PaperComponent , canActivate: [OnlyLoggedInGuard] },
   { path: 'magazine/choose/:taskId', component: MagazineListComponent , canActivate: [OnlyLoggedInGuard]},
   { path: 'paper/submit/:taskId', component: PaperSubmissionComponent , canActivate: [OnlyLoggedInGuard]},
+  { path: 'paper/tvalidation/:taskId', component: TvalidationComponent , canActivate: [OnlyLoggedInGuard]},
+  { path: 'paper/reject-explanation/:taskId', component: RejectExplanationComponent , canActivate: [OnlyLoggedInGuard]},
+
+
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -63,7 +69,9 @@ const appRoutes: Routes = [
     TaskComponent,
     MagazineListComponent,
     NavbarComponent,
-    PaperSubmissionComponent
+    PaperSubmissionComponent,
+    TvalidationComponent,
+    RejectExplanationComponent
   ],
   imports: [
     BrowserModule,

@@ -9,14 +9,15 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/naucnacentrala_db
     driverClassName: com.mysql.cj.jdbc.Driver
-
     username: root
     password: root
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     database: mysql
-    show_sql: true
+    show_sql: false
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     hibernate:
       ddl-auto: update
 

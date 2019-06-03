@@ -20,6 +20,7 @@ public class ValidateRegistrationTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         delegateExecution.setVariable("UserRegistration", delegateExecution.getVariable("email"));
         ApplicationUser appUser = new ApplicationUser();
         appUser.setUsername(delegateExecution.getVariable("username").toString());

@@ -14,7 +14,9 @@ public class SubmissionDataValidationTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         Long paperId = Long.parseLong((String) delegateExecution.getVariable("paperId"));
         delegateExecution.setVariable("submissionDataOk", paperService.checkIfExists(paperId));
+
     }
 }

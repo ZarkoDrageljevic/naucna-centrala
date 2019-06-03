@@ -15,6 +15,7 @@ public class CheckMagazineTypeTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         String magazineId = (String) delegateExecution.getVariable("magazineId");
 
         final Magazine magazine = magazineService.getMagazine(Long.parseLong(magazineId));

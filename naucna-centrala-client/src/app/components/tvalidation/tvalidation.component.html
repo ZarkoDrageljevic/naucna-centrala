@@ -1,0 +1,29 @@
+<div *ngIf="paper" class="card col-md-12 align-content-center border-info">
+  <div class="card-header bg-info form-heading" style="width: 100%">Paper details</div>
+  <div class="card-body">
+    <h3>Title</h3>
+    <p>{{paper.title}}</p>
+    <h3>Abstract</h3>
+    <p>{{paper.paperAbstract}}</p>
+    <h3>Keywords</h3>
+    <p>{{paper.keywords}}</p>
+    <h3>Scientific Field</h3>
+    <p>{{paper.scienceField.title}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8"></div>
+  <form class="col-md-8 form" (ngSubmit)="submitTvalidationAnswer()" #tvalidation="ngForm">
+    <h2 class="form-heading">Is This Paper Thematicaly Ok</h2>
+    <div class=""  *ngFor="let field of formFields">
+      <label *ngIf="field.name === 'thematicalyOk'">Ok</label>
+      <input *ngIf="field.name === 'thematicalyOk'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="OK" value=true>
+      <label *ngIf="field.name === 'thematicalyOk'">Not OK</label>
+      <input *ngIf="field.name === 'thematicalyOk'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="NotOk" value=false>
+    </div>
+    <br>
+    <button id="tvalidationBtn" [disabled]="tvalidation.form.invalid" class="btn btn-lg btn-primary btn-block"
+            type="submit">Submit
+    </button>
+  </form>
+</div>

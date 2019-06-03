@@ -18,6 +18,7 @@ public class SubscriptionPaymentTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         final String username = (String) delegateExecution.getVariable("userId");
         ApplicationUser applicationUser = applicationUserService.findByUsername(username);
 

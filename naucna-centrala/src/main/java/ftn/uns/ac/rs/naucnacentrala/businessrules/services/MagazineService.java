@@ -30,4 +30,9 @@ public class MagazineService {
 
         return magazineRepository.findAll().stream().map(MagazineDto::new).collect(Collectors.toList());
     }
+
+    public String getExecutiveEditorOfMagazine(Long magazineId) {
+        Magazine magazine = magazineRepository.getOne(magazineId);
+        return magazine.getEditor().getUsername();
+    }
 }

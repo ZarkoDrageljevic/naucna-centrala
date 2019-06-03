@@ -15,6 +15,7 @@ public class UnsuccessfulRegistrationNotificationTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         final String email = (String) delegateExecution.getVariable( "email");
         mailService.sendMail(email, "Registration Unsuccessful", "Registration is Unsuccessful.");
 

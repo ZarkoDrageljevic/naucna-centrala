@@ -21,6 +21,7 @@ public class CreateUserTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         ApplicationUser appUser = new ApplicationUser();
         appUser.setFirstname(delegateExecution.getVariable("firstname").toString());
         appUser.setLastname(delegateExecution.getVariable("lastname").toString());
