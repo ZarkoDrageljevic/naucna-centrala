@@ -15,8 +15,13 @@ public class MagazineService {
 
     private final MagazineRepository magazineRepository;
 
-    public Magazine getMagazine(Long magazineID) {
-        return magazineRepository.getOne(magazineID);
+    public Magazine getMagazine(Long magazineId) {
+        return magazineRepository.getOne(magazineId);
+    }
+
+    public MagazineDto getMagazineWithDetails(Long magazineId){
+        Magazine magazine = magazineRepository.getOne(magazineId);
+        return new MagazineDto(magazine);
     }
 
     public void subscribeToMagazine(Magazine magazine, ApplicationUser applicationUser) {

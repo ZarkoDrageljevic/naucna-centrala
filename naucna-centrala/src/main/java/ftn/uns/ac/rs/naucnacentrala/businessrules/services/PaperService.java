@@ -69,4 +69,10 @@ public class PaperService {
     public void delete(long parseLong) {
         paperRepository.deleteById(parseLong);
     }
+
+    public Paper getPaperWithDetails(long parseLong) {
+        Paper paper = paperRepository.getOne(parseLong);
+        paper.getScientificField();
+        return paper;
+    }
 }

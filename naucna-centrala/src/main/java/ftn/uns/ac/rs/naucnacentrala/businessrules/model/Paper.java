@@ -1,5 +1,6 @@
 package ftn.uns.ac.rs.naucnacentrala.businessrules.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Paper {
     private String title;
 
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","reviewers", "magazineEditors", "papers"})
     private ScientificField scientificField;
 
 
@@ -39,12 +41,15 @@ public class Paper {
     private List<CoAuthor> coauthors = new ArrayList<>();
 
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","subscribedMagazines"})
     private ApplicationUser author;
 
     @ManyToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","subscribedMagazines", "scienceFields", "magazines", "reviewedPapers", "reviews"})
     private List<Reviewer> reviewers = new ArrayList<>();
 
     @OneToMany
+    @JsonIgnoreProperties("reviewer")
     private List<Review> reviews = new ArrayList<>();
 
 }

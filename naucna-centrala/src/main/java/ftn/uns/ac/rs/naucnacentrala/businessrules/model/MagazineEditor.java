@@ -6,24 +6,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "editor")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class Editor extends ApplicationUser {
+public class MagazineEditor {
 
-    @OneToOne(mappedBy = "editor")
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","subscriptions", "reviewers", "magazineEditors", "editor"})
     private Magazine magazine;
 
     @OneToOne
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","magazine", "editor", "scientificFields"})
-    private MagazineEditor magazineEditor;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","magazines", "magazineEditor", "subscribedMagazines"})
+    private Editor editor;
 
+    @ManyToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","reviewers", "magazineEditors", "papers"})
+    private List<ScientificField> scientificFields;
 }

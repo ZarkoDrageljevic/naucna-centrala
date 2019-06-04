@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.naucnacentrala.businessrules.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,6 +54,7 @@ public class ApplicationUser {
     protected UserRole role;
 
     @ManyToMany(mappedBy = "subscriptions")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","subscriptions", "reviewers", "magazineEditors", "editor"})
     List<Magazine> subscribedMagazines;
 
 

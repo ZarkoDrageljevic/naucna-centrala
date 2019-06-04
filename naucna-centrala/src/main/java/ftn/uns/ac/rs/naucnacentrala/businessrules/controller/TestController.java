@@ -5,6 +5,7 @@ import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.ApplicationUserRepo
 import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.EditorRepository;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.ReviewerRepository;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.MagazineService;
+import ftn.uns.ac.rs.naucnacentrala.businessrules.services.PaperService;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.process.ProcessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,17 @@ public class TestController {
     private final EditorRepository editorRepository;
     private final ReviewerRepository reviewerRepository;
     private final ApplicationUserRepository applicationUserRepository;
+    private final PaperService paperService;
 
+    @GetMapping(value = "/magazine")
+    ResponseEntity getMagazine(){
+        return ResponseEntity.ok().body(magazineService.getMagazine(1L));
+    }
 
+    @GetMapping(value = "/paper")
+    ResponseEntity getPaper(){
+        return ResponseEntity.ok().body(paperService.findById(5L));
+    }
 
 
     @GetMapping(value = "/dodaj")

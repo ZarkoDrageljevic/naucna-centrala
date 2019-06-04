@@ -91,7 +91,13 @@ public class PaperSubmissionController {
     }
 
     @PostMapping("/tvalidation/{taskId}")
-    public ResponseEntity register(@PathVariable String taskId, @RequestBody List<TaskFormFieldDto> formFieldDtos) {
+    public ResponseEntity tvalidation(@PathVariable String taskId, @RequestBody List<TaskFormFieldDto> formFieldDtos) {
+        processService.submitTaskForm(taskId, formFieldDtos);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/format-validation/{taskId}")
+    public ResponseEntity formatValidation(@PathVariable String taskId, @RequestBody List<TaskFormFieldDto> formFieldDtos) {
         processService.submitTaskForm(taskId, formFieldDtos);
         return ResponseEntity.ok().build();
     }
@@ -114,6 +120,21 @@ public class PaperSubmissionController {
         taskFormFieldDto.setValue(variableValueDto);
         formFieldDtos.add(taskFormFieldDto);
         processService.submitTaskForm(taskId, formFieldDtos);
+
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @PostMapping("/format-correction/{taskId}")
+    public ResponseEntity resubmitFormat(@PathVariable String taskId, @RequestPart("data") PaperSubmissionDto paperSubmissionDtos,
+                                         @RequestPart("file") MultipartFile file, @RequestHeader String JWToken) {
+
+        ApplicationUser applicationUser = applicationUserService.findByUsername(tokenUtils.getUsernameFromToken(JWToken));
+
+        paperService.uploadFile(file, paperSubmissionDtos.getTitle());
+
+        final ArrayList<TaskFormFieldDto> taskFormFieldDtos = new ArrayList<>();
+        processService.submitTaskForm(taskId, taskFormFieldDtos);
 
         return ResponseEntity.noContent().build();
     }

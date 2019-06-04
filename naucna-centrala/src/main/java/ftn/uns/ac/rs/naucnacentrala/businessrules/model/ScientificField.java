@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.naucnacentrala.businessrules.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,13 +24,15 @@ public class ScientificField {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     protected Long id;
-
+    @ManyToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","subscribedMagazines", "scienceFields", "magazines", "reviewedPapers", "reviews"})
+    List<Reviewer> reviewers = new ArrayList<>();
+    @ManyToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","magazine", "editor", "scientificFields"})
+    List<MagazineEditor> magazineEditors = new ArrayList<>();
+    @OneToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","scientificField", "author", "reviewers", "reviews"})
+    List<Paper> papers = new ArrayList<>();
     @Column
     private String title;
-
-    @ManyToMany
-    List<Reviewer> reviewers = new ArrayList<>();
-
-    @OneToMany
-    List<Paper> papers = new ArrayList<>();
 }

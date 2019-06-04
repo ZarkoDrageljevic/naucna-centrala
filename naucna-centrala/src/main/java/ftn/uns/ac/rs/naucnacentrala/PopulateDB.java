@@ -2,6 +2,7 @@ package ftn.uns.ac.rs.naucnacentrala;
 
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.*;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.ApplicationUserRepository;
+import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.MagazineEditorRepository;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.MagazineRepository;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.ScientificFieldRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class PopulateDB implements ApplicationRunner {
     private final ApplicationUserRepository applicationUserRepository;
     private final MagazineRepository magazineRepository;
     private final ScientificFieldRepository scientificFieldRepository;
+    private final MagazineEditorRepository magazineEditorRepository;
 
 
     @Override
@@ -41,6 +43,12 @@ public class PopulateDB implements ApplicationRunner {
         Reviewer reviewer2 = applicationUserRepository.save(createRewever(9L, "adresa", "MyTestEmailReviewer@mailinator.com", "Nikola", "Tesla", "123", UserRole.REVIEWER, "NidzaReviewer", true));
         Reviewer reviewer3 = applicationUserRepository.save(createRewever(10L, "adresa", "MyTestEmailReviewer@mailinator.com", "Nikola", "Tesla", "123", UserRole.REVIEWER, "PeraReviewer", true));
 
+        Editor magazine1editor1 = applicationUserRepository.save(createeditor(11L, "adresa", "MyTestEmailEditor@mailinator.com", "Nikola", "Tesla", "123", UserRole.EDITOR, "Magazine1Editor1", true));
+        Editor magazine1editor2 = applicationUserRepository.save(createeditor(12L, "adresa", "MyTestEmailEditor@mailinator.com", "Sima", "Simic", "123", UserRole.EDITOR, "Magazine1Editor2", true));
+        Editor magazine2editor1 = applicationUserRepository.save(createeditor(13L, "adresa", "MyTestEmailEditor@mailinator.com", "Marko", "Markovic", "123", UserRole.EDITOR, "Magazine2Editor1", true));
+        Editor magazine2editor2 = applicationUserRepository.save(createeditor(13L, "adresa", "MyTestEmailEditor@mailinator.com", "Marko", "Markovic", "123", UserRole.EDITOR, "Magazine2Editor2", true));
+
+
         Magazine magazine1 = magazineRepository.save(createMagazine(1L, "Magazin1", true, editor1, Arrays.asList(reviewer1, reviewer2, reviewer3), Arrays.asList(applicationUser1, applicationUser2)));
         Magazine magazine2 = magazineRepository.save(createMagazine(2L, "Magazin2", false, editor2, Arrays.asList(reviewer1, reviewer2, reviewer3), Arrays.asList(applicationUser1, applicationUser2)));
         Magazine magazine3 = magazineRepository.save(createMagazine(3L, "Magazin3", true, editor3, Arrays.asList(reviewer1, reviewer2, reviewer3), Arrays.asList(applicationUser3, applicationUser4)));
@@ -50,7 +58,20 @@ public class PopulateDB implements ApplicationRunner {
         ScientificField scientificField3 = scientificFieldRepository.save(createScientificField(3L, "Biologija", Arrays.asList(reviewer3, reviewer2)));
         ScientificField scientificField4 = scientificFieldRepository.save(createScientificField(4L, "Hemija", Arrays.asList(reviewer2)));
 
+        MagazineEditor magazineEditor1 = magazineEditorRepository.save(createMagazineEditor(1L, magazine1editor1, magazine1, Arrays.asList(scientificField1, scientificField2)));
+        MagazineEditor magazineEditor2 = magazineEditorRepository.save(createMagazineEditor(2L, magazine1editor2, magazine1, Arrays.asList(scientificField3, scientificField4)));
+        MagazineEditor magazineEditor3 = magazineEditorRepository.save(createMagazineEditor(3L, magazine1editor1, magazine2, Arrays.asList(scientificField1, scientificField2)));
+        MagazineEditor magazineEditor4 = magazineEditorRepository.save(createMagazineEditor(4L, magazine2editor2, magazine2, Arrays.asList(scientificField3, scientificField4)));
 
+    }
+
+    private MagazineEditor createMagazineEditor(Long id, Editor editor, Magazine magazine, List<ScientificField> scientificFields) {
+        MagazineEditor magazineEditor = new MagazineEditor();
+        magazineEditor.setId(id);
+        magazineEditor.setEditor(editor);
+        magazineEditor.setMagazine(magazine);
+        magazineEditor.setScientificFields(scientificFields);
+        return magazineEditor;
     }
 
     private ScientificField createScientificField(Long id, String title, List<Reviewer> reviewers) {
