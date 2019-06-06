@@ -1,3 +1,34 @@
-<p>
-  review works!
-</p>
+<div *ngIf="paper" class="card col-md-12 align-content-center border-info">
+  <div class="card-header bg-info form-heading" style="width: 100%">Paper details</div>
+  <div class="card-body">
+    <h3>Title</h3>
+    <p>{{paper.title}}</p>
+    <h3>Abstract</h3>
+    <p>{{paper.paperAbstract}}</p>
+    <h3>Keywords</h3>
+    <p>{{paper.keywords}}</p>
+    <h3>Scientific Field</h3>
+    <p>{{paper.scienceField.title}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8"></div>
+  <form class="col-md-8 form" (ngSubmit)="submitReview()" #format="ngForm">
+    <h2 class="form-heading">Submit Review</h2>
+    <div class=""  *ngFor="let field of formFields">
+      <label  *ngIf="field.name === 'comment'" >{{field.name}}</label>
+      <input type="text" *ngIf="field.name === 'comment'" class="form-control" [(ngModel)]="field.value.value"
+             name="{{field.name}}">
+      <label  *ngIf="field.name === 'commentToEditor'" >{{field.name}}</label>
+      <input type="text" *ngIf="field.name === 'commentToEditor'" class="form-control" [(ngModel)]="field.value.value"
+             name="{{field.name}}">
+      <label  *ngIf="field.name === 'mark'" >{{field.name}}</label>
+      <input type="text" *ngIf="field.name === 'mark'" class="form-control" [(ngModel)]="field.value.value"
+             name="{{field.name}}">
+    </div>
+    <br>
+    <button id="formatBtn" [disabled]="format.form.invalid" class="btn btn-lg btn-primary btn-block"
+            type="submit">Submit
+    </button>
+  </form>
+</div>

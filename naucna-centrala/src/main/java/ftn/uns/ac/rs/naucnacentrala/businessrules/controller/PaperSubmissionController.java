@@ -4,8 +4,10 @@ import ftn.uns.ac.rs.naucnacentrala.businessrules.model.ApplicationUser;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.Paper;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.PaperDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.PaperSubmissionDto;
+import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.ReviewerDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.TaskFormFieldDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.ApplicationUserService;
+import ftn.uns.ac.rs.naucnacentrala.businessrules.services.MagazineService;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.PaperService;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.process.ProcessService;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.services.utils.TokenUtils;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/paper")
@@ -29,6 +32,7 @@ import java.util.Map;
 public class PaperSubmissionController {
     private final ProcessService processService;
     private final ApplicationUserService applicationUserService;
+    private final MagazineService magazineService;
     private final PaperService paperService;
     private final TokenUtils tokenUtils;
 
@@ -105,7 +109,7 @@ public class PaperSubmissionController {
 
     @PostMapping("/reject/thematic/{taskId}")
     public ResponseEntity rejectThematic(@PathVariable String taskId, @RequestPart("rejectionReason") String rejectionReason,
-                                        @RequestHeader String JWToken) {
+                                         @RequestHeader String JWToken) {
 
         final TaskDto task = processService.getTask(taskId);
         final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
@@ -139,4 +143,70 @@ public class PaperSubmissionController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/get-reviewers/{taskId}")
+    private ResponseEntity getMagazineReviewers(@PathVariable String taskId) {
+        final TaskDto task = processService.getTask(taskId);
+        final String magazineId = (String) processService.getVariable(task.getProcessInstanceId(), "magazineId");
+
+
+        return ResponseEntity.ok(magazineService.getReviewers(Long.parseLong(magazineId)));
+    }
+
+    @PostMapping("/select-reviewers/{taskId}")
+    private ResponseEntity selectReviewers(@PathVariable String taskId,
+                                           @RequestPart("reviewers") List<ReviewerDto> reviewers) {
+        final TaskDto task = processService.getTask(taskId);
+        final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
+
+        final Paper paper = paperService.submitReviewers(Long.parseLong(paperId), reviewers);
+
+
+        final ArrayList<TaskFormFieldDto> taskFormFieldDtos = new ArrayList<>();
+        List<String> reviewerUsernames = reviewers.stream().map(reviewerDto -> applicationUserService.findByLongId(reviewerDto.getId())).map(ApplicationUser::getUsername).collect(Collectors.toList());
+        VariableValueDto variableValueDto = new VariableValueDto();
+        variableValueDto.setValue(reviewerUsernames);
+        VariableValueDto variableValueDto2 = new VariableValueDto();
+        variableValueDto2.setValue("PT10M");
+        taskFormFieldDtos.add(new TaskFormFieldDto("reviewers", variableValueDto));
+        taskFormFieldDtos.add(new TaskFormFieldDto("reviewTime", variableValueDto2));
+        processService.submitTaskForm(taskId, taskFormFieldDtos);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/submit-review/{taskId}")
+    private ResponseEntity submitReview(@PathVariable String taskId, @RequestBody List<TaskFormFieldDto> formFieldDtos) {
+        formFieldDtos = formFieldDtos.stream().filter(formFieldDto -> formFieldDto.getName().equals("comment")
+                || formFieldDto.getName().equals("commentToEditor") || formFieldDto.getName().equals("mark")
+                || formFieldDto.getName().equals("reviewer")).collect(Collectors.toList());
+
+        processService.submitTaskForm(taskId, formFieldDtos);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/get-reviews/{taskId}")
+    private ResponseEntity getPaperReviews(@PathVariable String taskId) {
+        final TaskDto task = processService.getTask(taskId);
+        final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
+
+
+        return ResponseEntity.ok(paperService.getReviewes(Long.parseLong(paperId)));
+    }
+
+    @PostMapping("/submit-editor-review/{taskId}")
+    private ResponseEntity submitEditorReview(@PathVariable String taskId, @RequestBody List<TaskFormFieldDto> formFieldDtos) {
+        formFieldDtos = formFieldDtos.stream().filter(formFieldDto -> formFieldDto.getName().equals("decision")
+        ).collect(Collectors.toList());
+        VariableValueDto variableValueDto = new VariableValueDto();
+
+        if (formFieldDtos.get(0).getValue().getValue().equals("rejected")) {
+            variableValueDto.setValue(Boolean.TRUE);
+            formFieldDtos.add(new TaskFormFieldDto("isPaperRejected", variableValueDto));
+        } else {
+            variableValueDto.setValue(Boolean.FALSE);
+            formFieldDtos.add(new TaskFormFieldDto("isPaperRejected", variableValueDto));
+        }
+
+        processService.submitTaskForm(taskId, formFieldDtos);
+        return ResponseEntity.ok().build();
+    }
 }

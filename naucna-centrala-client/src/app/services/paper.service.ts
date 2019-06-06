@@ -22,7 +22,7 @@ export class PaperService {
 
   createPaper(taskId: string, formData: FormData) {
 
-    return this.http.post<Paper>(`${this.baseUrl}/new/${taskId}`, formData)
+    return this.http.post<Paper>(`${this.baseUrl}/new/${taskId}`, formData);
   }
 
   getPaperByTaskId(taskId: string) {
@@ -35,7 +35,7 @@ export class PaperService {
   }
 
   rejectPaperThematic(taskId: string, formData: FormData) {
-    return this.http.post<Paper>(`${this.baseUrl}/reject/thematic/${taskId}`, formData)
+    return this.http.post<Paper>(`${this.baseUrl}/reject/thematic/${taskId}`, formData);
   }
 
   submitFormatValidation(taskId: string, formFields: FormField[]) {
@@ -43,17 +43,28 @@ export class PaperService {
   }
 
   resubmitFormat(taskId: string, formData: FormData) {
-    return this.http.post<Paper>(`${this.baseUrl}/format-correction/${taskId}`, formData)
+    return this.http.post<Paper>(`${this.baseUrl}/format-correction/${taskId}`, formData);
   }
 
-  getReviewers(taskId: string){
-    return this.http.get<Reviewer[]>(`${this.baseUrl}/get-reviewers/${taskId}`)
+  getReviewers(taskId: string) {
+    return this.http.get<Reviewer[]>(`${this.baseUrl}/get-reviewers/${taskId}`);
   }
 
-  submitReview(taskId: string, formaData:FormData){
-    return this.http.post<Review[]>(`${this.baseUrl}/submit-review/${taskId}`, formaData)
+  chooseReviewers(taskId: string, formData: FormData) {
+    return this.http.post(`${this.baseUrl}/select-reviewers/${taskId}`, formData);
+  }
+
+  submitReview(taskId: string, formData: FormField[]) {
+    return this.http.post<Review[]>(`${this.baseUrl}/submit-review/${taskId}`, formData);
+  }
+
+  getPaperReviews(taskId: string) {
+    return this.http.get<Review[]>(`${this.baseUrl}/get-reviews/${taskId}`);
   }
 
 
+  submitEditorReview(taskId: string, formFields: FormField[]) {
+    return this.http.post(`${this.baseUrl}/submit-editor-review/${taskId}`, formFields);
+  }
 
 }

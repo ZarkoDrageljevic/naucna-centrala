@@ -2,6 +2,7 @@ package ftn.uns.ac.rs.naucnacentrala.businessrules.services;
 
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.ApplicationUser;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.model.Magazine;
+import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.ReviewerDto;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.MagazineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,10 @@ public class MagazineService {
     public String getExecutiveEditorOfMagazine(Long magazineId) {
         Magazine magazine = magazineRepository.getOne(magazineId);
         return magazine.getEditor().getUsername();
+    }
+
+    public List<ReviewerDto> getReviewers(long magazineId) {
+        Magazine magazine = magazineRepository.getOne(magazineId);
+        return magazine.getReviewers().stream().map(ReviewerDto::new).collect(Collectors.toList());
     }
 }

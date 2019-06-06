@@ -59,4 +59,8 @@ public class ApplicationUserService {
     public ApplicationUser findById(String editorId) {
         return appUserRepository.getOne(Long.parseLong(editorId));
     }
+
+    public ApplicationUser findByLongId(Long id) {
+        return appUserRepository.getOne(id);
+    }
 }

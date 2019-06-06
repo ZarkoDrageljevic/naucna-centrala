@@ -1,6 +1,7 @@
 package ftn.uns.ac.rs.naucnacentrala.businessrules.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import ftn.uns.ac.rs.naucnacentrala.businessrules.model.dto.ReviewerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +38,6 @@ public class Reviewer extends ApplicationUser {
     @JsonIgnoreProperties("reviewer")
     private List<Review> reviews = new ArrayList<>();
 
+    public Reviewer(ReviewerDto reviewerDto) {
+    }
 }

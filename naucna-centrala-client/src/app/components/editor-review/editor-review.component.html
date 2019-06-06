@@ -1,3 +1,33 @@
-<p>
-  editor-review works!
-</p>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-4">
+    <form class="form" (ngSubmit)="submitReview()" #submitReviewForm="ngForm">
+      <h2 class="form-heading">Paper review</h2>
+      <label>Decision</label>
+      <div class=""  *ngFor="let field of formFields">
+        <select name="decision" class="form-control" *ngIf="field.name === 'decision'"  class="form-control" [(ngModel)]="field.value.value" required>
+          <option *ngFor="let decision of decisions" [ngValue]="decision">{{decision}}</option>
+        </select>
+      </div>
+      <br>
+      <button id="submitBtn" [disabled]="submitReviewForm.form.invalid"
+              class="btn btn-lg btn-primary btn-block" type="submit">Submit Review</button>
+    </form>
+  </div>
+
+  <div class="col-md-4">
+    <h2>Reviewer comments</h2>
+    <div>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let review of reviews">
+          <h3>Comments</h3>
+          <p>{{review.comment}}</p>
+          <h3>Paper Suggestion</h3>
+          <p>{{review.mark}}</p>
+          <h3>Comment To Main Editor</h3>
+          <p>{{review.commentToEditor}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
