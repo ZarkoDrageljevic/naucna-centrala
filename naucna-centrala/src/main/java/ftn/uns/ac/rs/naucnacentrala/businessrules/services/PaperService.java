@@ -94,7 +94,7 @@ public class PaperService {
             throw new BadRequestException("Two reviewers needed for paper");
         }
 
-        paper.setReviewers(reviewers.stream().map(reviewerDto -> reviewerRepository.getOne(reviewerDto.getId())).collect(Collectors.toList()));
+        paper.getReviewers().addAll(reviewers.stream().map(reviewerDto -> reviewerRepository.getOne(reviewerDto.getId())).collect(Collectors.toList()));
         return paperRepository.save(paper);
     }
 
@@ -116,9 +116,10 @@ public class PaperService {
         return paper.getReviews().stream().map(ReviewDto::new).collect(Collectors.toList());
     }
 
-    public void removeOldReviews(long parseLong) {
+    public Paper removeOldReviews(long parseLong) {
         Paper paper = paperRepository.getOne(parseLong);
         paper.getReviews().clear();
         paperRepository.save(paper);
+        return paper;
     }
 }

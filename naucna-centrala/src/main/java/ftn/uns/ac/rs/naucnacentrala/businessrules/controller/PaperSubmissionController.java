@@ -162,7 +162,7 @@ public class PaperSubmissionController {
 
 
         final ArrayList<TaskFormFieldDto> taskFormFieldDtos = new ArrayList<>();
-        List<String> reviewerUsernames = paper.getReviewers().stream().map(reviewer -> applicationUserService.findByLongId(reviewer.getId())).map(ApplicationUser::getUsername).collect(Collectors.toList());
+        List<String> reviewerUsernames = reviewers.stream().map(reviewerDto -> applicationUserService.findByLongId(reviewerDto.getId())).map(ApplicationUser::getUsername).collect(Collectors.toList());
         VariableValueDto variableValueDto = new VariableValueDto();
         variableValueDto.setValue(reviewerUsernames);
         VariableValueDto variableValueDto2 = new VariableValueDto();
@@ -231,27 +231,6 @@ public class PaperSubmissionController {
         ).collect(Collectors.toList());
         processService.submitTaskForm(taskId, formFieldDtos);
         return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/select-reviewers/{taskId}")
-    private ResponseEntity additionalReviewer(@PathVariable String taskId,
-                                           @RequestPart("reviewers") List<ReviewerDto> reviewers) {
-        final TaskDto task = processService.getTask(taskId);
-        final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
-
-        final Paper paper = paperService.submitReviewers(Long.parseLong(paperId), reviewers);
-
-
-        final ArrayList<TaskFormFieldDto> taskFormFieldDtos = new ArrayList<>();
-        List<String> reviewerUsernames = paper.getReviewers().stream().map(reviewer -> applicationUserService.findByLongId(reviewer.getId())).map(ApplicationUser::getUsername).collect(Collectors.toList());
-        VariableValueDto variableValueDto = new VariableValueDto();
-        variableValueDto.setValue(reviewerUsernames);
-        VariableValueDto variableValueDto2 = new VariableValueDto();
-        variableValueDto2.setValue("PT10M");
-        taskFormFieldDtos.add(new TaskFormFieldDto("reviewers", variableValueDto));
-        taskFormFieldDtos.add(new TaskFormFieldDto("reviewTime", variableValueDto2));
-        processService.submitTaskForm(taskId, taskFormFieldDtos);
-        return ResponseEntity.noContent().build();
     }
 
 }
