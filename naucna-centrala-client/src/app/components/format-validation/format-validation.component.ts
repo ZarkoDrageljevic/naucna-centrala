@@ -49,6 +49,7 @@ export class FormatValidationComponent implements OnInit {
     this.taskService.getFormData(this.taskId).subscribe(res => {
       console.log(res);
       this.formFields = res.formFields;
+
     });
   }
 }

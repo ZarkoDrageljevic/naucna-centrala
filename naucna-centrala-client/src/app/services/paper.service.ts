@@ -67,4 +67,11 @@ export class PaperService {
     return this.http.post(`${this.baseUrl}/submit-editor-review/${taskId}`, formFields);
   }
 
+  submitRevision(taskId: string, formData: FormData) {
+    return this.http.post<Paper>(`${this.baseUrl}/resubmit-paper/${taskId}`, formData);
+  }
+
+  submitReviewOfRevision(taskId: string, formFields: FormField[]) {
+    return this.http.post(`${this.baseUrl}/review-revision/${taskId}`, formFields);
+  }
 }

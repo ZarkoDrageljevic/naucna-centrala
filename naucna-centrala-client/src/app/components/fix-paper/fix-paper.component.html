@@ -1,3 +1,39 @@
-<p>
-  fix-paper works!
-</p>
+<div *ngIf="paper.scienceField" class="row">
+  <div class="col-md-2">Paper Revision</div>
+  <form class="col-md-4 form" (ngSubmit)="create()" #paperForm="ngForm">
+    <h2 class="form-heading">Paper</h2>
+
+    <input hidden type="text" class="form-control" [ngModel]="paper.id" name="id" disabled autofocus [value]="paper.id">
+    <label>Title</label>
+    <input disabled type="text" class="form-control" [(ngModel)]="paper.title" name="title" required autofocus
+           [value]="paper.title">
+    <label>Abstract</label>
+    <textarea class="form-control" [(ngModel)]="paper.paperAbstract" name="abstract" required disabled
+              [value]="paper.paperAbstract"></textarea>
+    <label>Keywords</label>
+    <input type="text" class="form-control" [(ngModel)]="paper.keywords" name="keywords" required autofocus disabled
+           [value]="paper.keywords">
+    <label>Science field</label>
+    <input *ngIf="paper.scienceField" type="text" class="form-control" [(ngModel)]="paper.scienceField.title"
+           name="scienceField" required
+           autofocus disabled [value]="paper.scienceField.title">
+    <label>Upload pdf</label>
+    <input type="file" class="form-control-file" (change)="fileChange($event)" accept=".pdf">
+    <input type="hidden" [(ngModel)]="file" name="file" required>
+    <br/>
+    <button [disabled]="paperForm.form.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Submit
+      paper revision
+    </button>
+  </form>
+</div>
+<div class="col-md-4">
+  <h2>Reviewer comments</h2>
+  <div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let review of reviews">
+        <h3>Comments</h3>
+        <p>{{review.comment}}</p>
+      </li>
+    </ul>
+  </div>
+</div>

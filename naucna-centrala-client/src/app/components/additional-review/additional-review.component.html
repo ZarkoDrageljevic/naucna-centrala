@@ -1,3 +1,36 @@
-<p>
-  additional-review works!
-</p>
+<div>
+  <div class="row">
+    <h2>Choose Additional Reviewer</h2>
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rev of reviewers">
+        <td scope="row">{{rev.firstname}}</td>
+        <td scope="row">{{rev.lastname}}</td>
+        <td>
+          <button  [disabled]="chosenReviewers.includes(rev)" class="btn btn-primary btn-block" (click)="insertReviewer(rev)">Choose Reviewer</button>
+        </td>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Chosen Reviewers</h2>
+    <ul class="list-group">
+      <li *ngFor="let rev of chosenReviewers" class="list-group-item">
+        <p>Name: {{rev.firstname}} {{rev.lastname}} <span
+          class="float-right fa fa-trash fa-2x icon-pad pointer" (click)="removeReviewer(rev)">
+          </span></p>
+      </li>
+      <button [disabled]="chosenReviewers.length !== 1" class="btn btn-lg btn-primary btn-block"
+              (click)="submit()">Submit choose
+      </button>
+    </ul>
+  </div>
+</div>
+

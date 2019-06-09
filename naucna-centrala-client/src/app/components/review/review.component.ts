@@ -33,7 +33,11 @@ export class ReviewComponent implements OnInit {
       this.paperService.getPaperByTaskId(this.taskId).subscribe(res =>
         this.paper = res);
       this.getFormData();
-
+      this.formFields.forEach(function (formField) {
+        if (formField.name == "comment" || formField.name == "commentToEditor" || formField.name == "mark"){
+          formField.value.value == "";
+        }
+      });
     });
   }
 
