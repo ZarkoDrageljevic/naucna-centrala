@@ -115,4 +115,10 @@ public class PaperService {
         Paper paper = paperRepository.getOne(parseLong);
         return paper.getReviews().stream().map(ReviewDto::new).collect(Collectors.toList());
     }
+
+    public void removeOldReviews(long parseLong) {
+        Paper paper = paperRepository.getOne(parseLong);
+        paper.getReviews().clear();
+        paperRepository.save(paper);
+    }
 }

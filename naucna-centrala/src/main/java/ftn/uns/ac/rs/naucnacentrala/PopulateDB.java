@@ -35,18 +35,18 @@ public class PopulateDB implements ApplicationRunner {
                 "Drageljevic", "123", UserRole.USER, "Zarko", true));
         ApplicationUser applicationUser2 = applicationUserRepository.save(createAuthor(2L, "MarijeBursac15", "petarpetar@mailinator.com", "Petar", "Petrovic", "123", UserRole.USER, "Petar", true));
         ApplicationUser applicationUser3 = applicationUserRepository.save(createAuthor(3L, "MarijeBursac15", "mirkomirko@mailinator.com", "Mirko", "Mirkovic", "123", UserRole.USER, "Mirko", true));
-        ApplicationUser applicationUser4 = applicationUserRepository.save(createAuthor(4L, "adresa", "Emai@mailinator.com", "Nikola", "Tesla", "123", UserRole.USER, "Nidza", true));
-        Editor editor1 = applicationUserRepository.save(createeditor(5L, "adresa", "MyTestEmailEditor@mailinator.com", "Nikola", "Tesla", "123", UserRole.EDITOR, "NidzaEditor", true));
-        Editor editor2 = applicationUserRepository.save(createeditor(6L, "adresa", "MyTestEmailEditor@mailinator.com", "Sima", "Simic", "123", UserRole.EDITOR, "SimaEditor", true));
-        Editor editor3 = applicationUserRepository.save(createeditor(7L, "adresa", "MyTestEmailEditor@mailinator.com", "Marko", "Markovic", "123", UserRole.EDITOR, "MareEditor", true));
-        Reviewer reviewer1 = applicationUserRepository.save(createRewever(8L, "adresa", "MyTestEmailReviewer@mailinator.com", "Nikola", "Tesla", "123", UserRole.REVIEWER, "MikaReviewer", true));
-        Reviewer reviewer2 = applicationUserRepository.save(createRewever(9L, "adresa", "MyTestEmailReviewer@mailinator.com", "Nikola", "Tesla", "123", UserRole.REVIEWER, "NidzaReviewer", true));
-        Reviewer reviewer3 = applicationUserRepository.save(createRewever(10L, "adresa", "MyTestEmailReviewer@mailinator.com", "Nikola", "Tesla", "123", UserRole.REVIEWER, "PeraReviewer", true));
+        ApplicationUser applicationUser4 = applicationUserRepository.save(createAuthor(4L, "adresa", "Emai@mailinator.com", "Zivan", "Zivkovic", "123", UserRole.USER, "Zivan", true));
+        Editor editor1 = applicationUserRepository.save(createeditor(5L, "adresa", "NidzaEditor@mailinator.com", "Nikola", "Nikolic", "123", UserRole.EDITOR, "NidzaEditor", true));
+        Editor editor2 = applicationUserRepository.save(createeditor(6L, "adresa", "SimaEditor@mailinator.com", "Sima", "Simic", "123", UserRole.EDITOR, "SimaEditor", true));
+        Editor editor3 = applicationUserRepository.save(createeditor(7L, "adresa", "MareEditor@mailinator.com", "Marko", "Markovic", "123", UserRole.EDITOR, "MareEditor", true));
+        Reviewer reviewer1 = applicationUserRepository.save(createRewever(8L, "adresa", "VladaReviewer@mailinator.com", "Vlada", "Vladic", "123", UserRole.REVIEWER, "VladaReviewer", true));
+        Reviewer reviewer2 = applicationUserRepository.save(createRewever(9L, "adresa", "StankoReviewer@mailinator.com", "Stanko", "Stankovic", "123", UserRole.REVIEWER, "StankoReviewer", true));
+        Reviewer reviewer3 = applicationUserRepository.save(createRewever(10L, "adresa", "NemanjaReviewr@mailinator.com", "Nemanja", "Nemanjic", "123", UserRole.REVIEWER, "NemanjaReviewer", true));
 
-        Editor magazine1editor1 = applicationUserRepository.save(createeditor(11L, "adresa", "MyTestEmailEditor@mailinator.com", "Nikola", "Tesla", "123", UserRole.EDITOR, "Magazine1Editor1", true));
-        Editor magazine1editor2 = applicationUserRepository.save(createeditor(12L, "adresa", "MyTestEmailEditor@mailinator.com", "Sima", "Simic", "123", UserRole.EDITOR, "Magazine1Editor2", true));
-        Editor magazine2editor1 = applicationUserRepository.save(createeditor(13L, "adresa", "MyTestEmailEditor@mailinator.com", "Marko", "Markovic", "123", UserRole.EDITOR, "Magazine2Editor1", true));
-        Editor magazine2editor2 = applicationUserRepository.save(createeditor(13L, "adresa", "MyTestEmailEditor@mailinator.com", "Marko", "Markovic", "123", UserRole.EDITOR, "Magazine2Editor2", true));
+        Editor magazine1editor1 = applicationUserRepository.save(createeditor(11L, "adresa", "MyTestEmailEditor11@mailinator.com", "Nikola", "Tesla", "123", UserRole.EDITOR, "Magazine1Editor1", true));
+        Editor magazine1editor2 = applicationUserRepository.save(createeditor(12L, "adresa", "MyTestEmailEditor12@mailinator.com", "Sima", "Simic", "123", UserRole.EDITOR, "Magazine1Editor2", true));
+        Editor magazine2editor1 = applicationUserRepository.save(createeditor(13L, "adresa", "MyTestEmailEditor21@mailinator.com", "Vuk", "Vukic", "123", UserRole.EDITOR, "Magazine2Editor1", true));
+        Editor magazine2editor2 = applicationUserRepository.save(createeditor(14L, "adresa", "MyTestEmailEditor22@mailinator.com", "Milan", "Milanovic", "123", UserRole.EDITOR, "Magazine2Editor2", true));
 
 
         Magazine magazine1 = magazineRepository.save(createMagazine(1L, "Magazin1", true, editor1, Arrays.asList(reviewer1, reviewer2, reviewer3), Arrays.asList(applicationUser1, applicationUser2)));

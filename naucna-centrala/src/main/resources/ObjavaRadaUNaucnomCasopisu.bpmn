@@ -238,7 +238,12 @@
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P1M</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:userTask id="EditorReviewOfRevision" name="EditorReviewOfRevision">
+    <bpmn:userTask id="EditorReviewOfRevision" name="EditorReviewOfRevision" camunda:formKey="isRevisionAccepted" camunda:assignee="${chosenEditor}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="isRevisionAccepted" label="Is Revision Accepted ?" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_01juf9t</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1utccq2</bpmn:outgoing>
     </bpmn:userTask>
