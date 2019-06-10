@@ -19,6 +19,10 @@
       </tbody>
     </table>
   </div>
+  <div>
+    <button [hidden]="!canSeeScienceField" class="btn btn-sm btn-secondary" (click)="getReviewersSienceField()">Science Field Reviewers</button>
+    <button [hidden]="!canSeeAll" class="btn btn-sm btn-secondary" (click)="getReviewers()">All Reviewers</button>
+  </div>
   <div class="col-md-4">
     <h2>Chosen Reviewers</h2>
     <ul class="list-group">

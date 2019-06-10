@@ -19,7 +19,7 @@ export class EditorReviewComponent implements OnInit {
 
   formFields = new Array<FormField>();
   taskId: string;
-  decisions = ["rejected", "majorFix", "smallFix", "accepted"];
+  decisions = ["rejected", "majorFix", "smallFix", "accepted", "additionalReviewer"];
 
   constructor(private paperService: PaperService,
               private scienceFieldService: ScienceFieldService,

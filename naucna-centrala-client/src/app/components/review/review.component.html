@@ -23,8 +23,9 @@
       <input type="text" *ngIf="field.name === 'commentToEditor'" class="form-control" [(ngModel)]="field.value.value"
              name="{{field.name}}">
       <label  *ngIf="field.name === 'mark'" >{{field.name}}</label>
-      <input type="text" *ngIf="field.name === 'mark'" class="form-control" [(ngModel)]="field.value.value"
-             name="{{field.name}}">
+      <select name="decision" class="form-control" *ngIf="field.name === 'mark'"  class="form-control" [(ngModel)]="field.value.value" required>
+        <option *ngFor="let decision of decisions" [ngValue]="decision">{{decision}}</option>
+      </select>
     </div>
     <br>
     <button id="formatBtn" [disabled]="format.form.invalid" class="btn btn-lg btn-primary btn-block"

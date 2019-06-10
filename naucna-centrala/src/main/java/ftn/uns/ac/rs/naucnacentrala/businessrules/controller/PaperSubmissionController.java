@@ -128,6 +128,12 @@ public class PaperSubmissionController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/payment/{taskId}")
+    public ResponseEntity payment(@PathVariable String taskId, @RequestBody List<TaskFormFieldDto> formFieldDtos) {
+        processService.submitTaskForm(taskId, formFieldDtos);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PostMapping("/format-correction/{taskId}")
     public ResponseEntity resubmitFormat(@PathVariable String taskId, @RequestPart("data") PaperSubmissionDto paperSubmissionDtos,
@@ -144,12 +150,13 @@ public class PaperSubmissionController {
     }
 
     @GetMapping("/get-reviewers/{taskId}")
-    private ResponseEntity getMagazineReviewers(@PathVariable String taskId) {
+    private ResponseEntity getMagazineReviewers(@PathVariable String taskId, @RequestParam(required = false) String scienceField) {
         final TaskDto task = processService.getTask(taskId);
         final String magazineId = (String) processService.getVariable(task.getProcessInstanceId(), "magazineId");
+        final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
 
 
-        return ResponseEntity.ok(magazineService.getReviewers(Long.parseLong(magazineId)));
+        return ResponseEntity.ok(magazineService.getReviewers(Long.parseLong(magazineId),Long.parseLong(paperId),scienceField));
     }
 
     @PostMapping("/select-reviewers/{taskId}")
@@ -166,7 +173,7 @@ public class PaperSubmissionController {
         VariableValueDto variableValueDto = new VariableValueDto();
         variableValueDto.setValue(reviewerUsernames);
         VariableValueDto variableValueDto2 = new VariableValueDto();
-        variableValueDto2.setValue("PT10M");
+        variableValueDto2.setValue("PT5M");
         taskFormFieldDtos.add(new TaskFormFieldDto("reviewers", variableValueDto));
         taskFormFieldDtos.add(new TaskFormFieldDto("reviewTime", variableValueDto2));
         processService.submitTaskForm(taskId, taskFormFieldDtos);

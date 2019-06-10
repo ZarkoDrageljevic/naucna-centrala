@@ -52,4 +52,7 @@ public class Paper {
     @JsonIgnoreProperties("reviewer")
     private List<Review> reviews = new ArrayList<>();
 
+    @Column
+    private String DOI;
+
 }

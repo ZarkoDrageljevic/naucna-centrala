@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormField} from '../../model/form-field';
 import {Paper} from '../../model/paper';
 import {PaperService} from '../../services/paper.service';
@@ -7,17 +7,15 @@ import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-review',
-  templateUrl: './review.component.html',
-  styleUrls: ['./review.component.css']
+  selector: 'app-payment',
+  templateUrl: './payment.component.html',
+  styleUrls: ['./payment.component.css']
 })
-export class ReviewComponent implements OnInit {
+export class PaymentComponent implements OnInit {
 
   formFields = new Array<FormField>();
   taskId: string;
   paper: Paper;
-  decisions = ["rejected", "majorFix", "smallFix", "accepted"];
-
 
   constructor(
     private paperService: PaperService,
@@ -32,17 +30,14 @@ export class ReviewComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.taskId = params['taskId'];
 
-      this.paperService.getPaperByTaskId(this.taskId).subscribe(res =>
-        this.paper = res);
       this.getFormData();
 
     });
   }
 
-  submitReview() {
-    console.log(this.formFields)
-    this.paperService.submitReview(this.taskId, this.formFields).subscribe(res => {
-      this.toastrService.success('Format Validation Performed');
+  submitPayment() {
+    this.paperService.submitPayment(this.taskId,  new Array<FormField>()).subscribe(res => {
+      this.toastrService.success('Payment Successful');
       this.router.navigateByUrl('task');
     });
   }
@@ -50,11 +45,6 @@ export class ReviewComponent implements OnInit {
   private getFormData() {
     this.taskService.getFormData(this.taskId).subscribe(res => {
       console.log(res);
-      res.formFields.forEach(function (formField) {
-        if (formField.name == "comment" || formField.name == "commentToEditor" || formField.name == "mark"){
-          formField.value.value = "";
-        }
-      });
       this.formFields = res.formFields;
     });
   }

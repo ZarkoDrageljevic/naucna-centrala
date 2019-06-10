@@ -15,7 +15,8 @@ export class AdditionalReviewComponent implements OnInit {
   reviewers = new Array<Reviewer>();
   reviewer = new Reviewer();
   chosenReviewers = new Array<Reviewer>();
-
+  canSeeAll: boolean;
+  canSeeScienceField: boolean;
   taskId: string;
 
   constructor(private paperService: PaperService,
@@ -26,6 +27,8 @@ export class AdditionalReviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.canSeeAll=false;
+    this.canSeeScienceField = true;
     this.route.params.subscribe(params => {
       this.taskId = params['taskId'];
       this.getReviewers();
@@ -60,8 +63,20 @@ export class AdditionalReviewComponent implements OnInit {
   }
 
   private getReviewers() {
+    this.chosenReviewers = new Array<Reviewer>();
     this.paperService.getReviewers(this.taskId).subscribe(result => {
       this.reviewers = result;
+      this.canSeeAll = false;
+      this.canSeeScienceField = true;
+    });
+  }
+
+  private getReviewersSienceField() {
+    this.chosenReviewers = new Array<Reviewer>();
+    this.paperService.getReviewersScienceField(this.taskId).subscribe(result => {
+      this.reviewers = result;
+      this.canSeeScienceField = false;
+      this.canSeeAll = true;
     });
   }
 }

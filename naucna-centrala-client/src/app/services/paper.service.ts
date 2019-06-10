@@ -50,6 +50,10 @@ export class PaperService {
     return this.http.get<Reviewer[]>(`${this.baseUrl}/get-reviewers/${taskId}`);
   }
 
+  getReviewersScienceField(taskId: string) {
+    return this.http.get<Reviewer[]>(`${this.baseUrl}/get-reviewers/${taskId}?scienceField=da`);
+  }
+
   chooseReviewers(taskId: string, formData: FormData) {
     return this.http.post(`${this.baseUrl}/select-reviewers/${taskId}`, formData);
   }
@@ -73,5 +77,10 @@ export class PaperService {
 
   submitReviewOfRevision(taskId: string, formFields: FormField[]) {
     return this.http.post(`${this.baseUrl}/review-revision/${taskId}`, formFields);
+  }
+
+  submitPayment(taskId: string, array: FormField[]) {
+    return this.http.post(`${this.baseUrl}/payment/${taskId}`, array);
+
   }
 }

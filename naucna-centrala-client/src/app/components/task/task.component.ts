@@ -82,6 +82,10 @@ export class TaskComponent implements OnInit {
         this.router.navigate(['/paper/fix-paper', task.id]);
         break;
       }
+      case 'Payment': {
+        this.router.navigate(['/payment', task.id]);
+        break;
+      }
       default: {
         console.log('Invalid choice');
         break;

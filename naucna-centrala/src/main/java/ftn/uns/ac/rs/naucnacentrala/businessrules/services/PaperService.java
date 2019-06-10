@@ -18,6 +18,7 @@ import javax.ws.rs.BadRequestException;
 import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -121,5 +122,12 @@ public class PaperService {
         paper.getReviews().clear();
         paperRepository.save(paper);
         return paper;
+    }
+
+    public void addDOI(long parseLong) {
+        Paper paper = paperRepository.getOne(parseLong);
+        paper.setDOI(UUID.randomUUID().toString());
+        paperRepository.save(paper);
+
     }
 }

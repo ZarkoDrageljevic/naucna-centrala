@@ -40,6 +40,7 @@ import {AdditionalReviewComponent} from './components/additional-review/addition
 import {EditorReviewComponent} from './components/editor-review/editor-review.component';
 import {EditorRevisionReviewComponent} from './components/editor-revision-review/editor-revision-review.component';
 import {FixPaperComponent} from './components/fix-paper/fix-paper.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 
 const appRoutes: Routes = [
@@ -63,6 +64,8 @@ const appRoutes: Routes = [
   {path: 'paper/editor-review/:taskId', component: EditorReviewComponent, canActivate: [OnlyLoggedInGuard]},
   {path: 'paper/editor-reviews-review/:taskId', component: EditorRevisionReviewComponent, canActivate: [OnlyLoggedInGuard]},
   {path: 'paper/fix-paper/:taskId', component: FixPaperComponent, canActivate: [OnlyLoggedInGuard]},
+  {path: 'payment/:taskId', component: PaymentComponent, canActivate: [OnlyLoggedInGuard]},
+
 
   {path: '**', component: NotFoundComponent}
 ];
@@ -93,7 +96,8 @@ const appRoutes: Routes = [
     AdditionalReviewComponent,
     EditorReviewComponent,
     EditorRevisionReviewComponent,
-    FixPaperComponent
+    FixPaperComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

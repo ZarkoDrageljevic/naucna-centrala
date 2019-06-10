@@ -1,6 +1,7 @@
 <div>
   <div class="row">
     <h2>Reviewers</h2>
+
     <table class="table">
       <thead class="thead-dark">
       <tr>
@@ -14,10 +15,16 @@
         <td scope="row">{{rev.firstname}}</td>
         <td scope="row">{{rev.lastname}}</td>
         <td>
-          <button  [disabled]="chosenReviewers.includes(rev)" class="btn btn-primary btn-block" (click)="insertReviewer(rev)">Choose Reviewer</button>
+          <button [disabled]="chosenReviewers.includes(rev)" class="btn btn-primary btn-block"
+                  (click)="insertReviewer(rev)">Choose Reviewer
+          </button>
         </td>
       </tbody>
     </table>
+  </div>
+  <div>
+    <button [hidden]="!canSeeScienceField" class="btn btn-sm btn-secondary" (click)="getReviewersSienceField()">Science Field Reviewers</button>
+    <button [hidden]="!canSeeAll" class="btn btn-sm btn-secondary" (click)="getReviewers()">All Reviewers</button>
   </div>
   <div class="col-md-4">
     <h2>Chosen Reviewers</h2>
@@ -27,7 +34,7 @@
           class="float-right fa fa-trash fa-2x icon-pad pointer" (click)="removeReviewer(rev)">
           </span></p>
       </li>
-      <button [disabled]="chosenReviewers.length !== 2" class="btn btn-lg btn-primary btn-block"
+      <button [disabled]="chosenReviewers.length < 1" class="btn btn-lg btn-primary btn-block"
               (click)="submit()">Submit choose
       </button>
     </ul>

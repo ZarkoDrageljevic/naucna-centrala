@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Paper} from '../../model/paper';
-import {ScienceField} from '../../model/science-field';
-import {CoAuthor} from '../../model/co-author';
+import {Component, OnInit} from '@angular/core';
 import {PaperService} from '../../services/paper.service';
 import {ScienceFieldService} from '../../services/science-field.service';
 import {ToastrService} from 'ngx-toastr';
@@ -20,6 +17,8 @@ export class ChooseReviewersComponent implements OnInit {
   chosenReviewers = new Array<Reviewer>();
 
   taskId: string;
+  canSeeAll: boolean;
+  canSeeScienceField: boolean;
 
   constructor(private paperService: PaperService,
               private scienceFieldService: ScienceFieldService,
@@ -29,6 +28,8 @@ export class ChooseReviewersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.canSeeAll=false;
+    this.canSeeScienceField = true;
     this.route.params.subscribe(params => {
       this.taskId = params['taskId'];
       this.getReviewers();
@@ -41,6 +42,8 @@ export class ChooseReviewersComponent implements OnInit {
     this.paperService.chooseReviewers(this.taskId, formData).subscribe(result => {
       this.toastr.success('Reviewers Chosen');
       this.router.navigate(['task']);
+    }, error1 => {
+      this.toastr.error(error1.error.message);
     });
   }
 
@@ -52,7 +55,7 @@ export class ChooseReviewersComponent implements OnInit {
 
   insertReviewer(reviewer) {
     this.chosenReviewers.push(reviewer);
-    console.log(this.chosenReviewers)
+    console.log(this.chosenReviewers);
   }
 
   removeReviewer(reviewer: Reviewer) {
@@ -63,8 +66,22 @@ export class ChooseReviewersComponent implements OnInit {
   }
 
   private getReviewers() {
+    this.chosenReviewers = new Array<Reviewer>();
     this.paperService.getReviewers(this.taskId).subscribe(result => {
       this.reviewers = result;
+      this.canSeeAll = false;
+      this.canSeeScienceField = true;
     });
   }
+
+  private getReviewersSienceField() {
+    this.chosenReviewers = new Array<Reviewer>();
+    this.paperService.getReviewersScienceField(this.taskId).subscribe(result => {
+      this.reviewers = result;
+      this.canSeeScienceField = false;
+      this.canSeeAll = true;
+    });
+  }
+
+
 }

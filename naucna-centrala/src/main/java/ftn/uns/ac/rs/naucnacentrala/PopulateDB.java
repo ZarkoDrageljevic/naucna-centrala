@@ -60,7 +60,7 @@ public class PopulateDB implements ApplicationRunner {
 
         MagazineEditor magazineEditor1 = magazineEditorRepository.save(createMagazineEditor(1L, magazine1editor1, magazine1, Arrays.asList(scientificField1, scientificField2)));
         MagazineEditor magazineEditor2 = magazineEditorRepository.save(createMagazineEditor(2L, magazine1editor2, magazine1, Arrays.asList(scientificField3, scientificField4)));
-        MagazineEditor magazineEditor3 = magazineEditorRepository.save(createMagazineEditor(3L, magazine1editor1, magazine2, Arrays.asList(scientificField1, scientificField2)));
+        MagazineEditor magazineEditor3 = magazineEditorRepository.save(createMagazineEditor(3L, magazine2editor1, magazine2, Arrays.asList(scientificField1, scientificField2)));
         MagazineEditor magazineEditor4 = magazineEditorRepository.save(createMagazineEditor(4L, magazine2editor2, magazine2, Arrays.asList(scientificField3, scientificField4)));
 
     }
