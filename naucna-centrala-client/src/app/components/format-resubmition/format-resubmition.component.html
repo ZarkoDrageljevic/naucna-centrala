@@ -1,6 +1,6 @@
 <div *ngIf="paper.scienceField" class="row">
   <div class="col-md-2"></div>
-  <form class="col-md-4 form" (ngSubmit)="create()" #paperForm="ngForm">
+  <form class="col-md-8 form" (ngSubmit)="create()" #paperForm="ngForm">
     <h2 class="form-heading">Paper</h2>
 
     <input hidden type="text" class="form-control" [ngModel]="paper.id" name="id" disabled autofocus [value]="paper.id">
@@ -24,4 +24,12 @@
       paper
     </button>
   </form>
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div *ngIf="formFields" class="col-md-8">
+    <h3>Comments</h3>
+    <div *ngFor="let formField of formFields" class="col-md-12">
+      <textarea  *ngIf="formField.name === 'formatComment'" style="width: 100%" disabled>{{formField.value.value}}</textarea>
+    </div>
+  </div>
 </div>

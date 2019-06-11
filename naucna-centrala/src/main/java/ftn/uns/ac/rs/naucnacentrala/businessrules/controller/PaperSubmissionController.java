@@ -156,7 +156,7 @@ public class PaperSubmissionController {
         final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
 
 
-        return ResponseEntity.ok(magazineService.getReviewers(Long.parseLong(magazineId),Long.parseLong(paperId),scienceField));
+        return ResponseEntity.ok(magazineService.getReviewers(Long.parseLong(magazineId), Long.parseLong(paperId), scienceField));
     }
 
     @PostMapping("/select-reviewers/{taskId}")
@@ -219,13 +219,19 @@ public class PaperSubmissionController {
 
     @PostMapping("/resubmit-paper/{taskId}")
     public ResponseEntity revisionSubmit(@PathVariable String taskId, @RequestPart("data") PaperSubmissionDto paperSubmissionDtos,
-                                         @RequestPart("file") MultipartFile file, @RequestHeader String JWToken) {
+                                         @RequestPart("file") MultipartFile file, @RequestPart("commentAnswer") String commentAnswer, @RequestHeader String JWToken) {
 
         ApplicationUser applicationUser = applicationUserService.findByUsername(tokenUtils.getUsernameFromToken(JWToken));
 
         paperService.uploadFile(file, paperSubmissionDtos.getTitle());
 
         final ArrayList<TaskFormFieldDto> taskFormFieldDtos = new ArrayList<>();
+        TaskFormFieldDto taskFormFieldDto = new TaskFormFieldDto();
+        taskFormFieldDto.setName("commentAnswer");
+        VariableValueDto value = new VariableValueDto();
+        value.setValue(commentAnswer);
+        taskFormFieldDto.setValue(value);
+        taskFormFieldDtos.add(taskFormFieldDto);
 
         processService.submitTaskForm(taskId, taskFormFieldDtos);
 

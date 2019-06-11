@@ -5,6 +5,8 @@ import {PaperService} from '../../services/paper.service';
 import {ScienceFieldService} from '../../services/science-field.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FormField} from '../../model/form-field';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-format-resubmition',
@@ -12,6 +14,8 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./format-resubmition.component.css']
 })
 export class FormatResubmitionComponent implements OnInit {
+
+  formFields = new Array<FormField>();
 
   paper: Paper = new Paper();
   file: File;
@@ -21,6 +25,7 @@ export class FormatResubmitionComponent implements OnInit {
   constructor(private paperService: PaperService,
               private scienceFieldService: ScienceFieldService,
               private toastr: ToastrService,
+              private taskService: TaskService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -30,8 +35,9 @@ export class FormatResubmitionComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.taskId = params['taskId'];
       this.paperService.getPaperByTaskId(this.taskId).subscribe(res => {
+        this.getFormData();
         this.paper = res;
-        console.log(this.paper)
+        console.log(this.paper);
       });
     });
   }
@@ -53,6 +59,14 @@ export class FormatResubmitionComponent implements OnInit {
     formData.append('file', this.file);
     formData.append('data', new Blob([JSON.stringify(this.paper)], {type: 'application/json'}));
     return formData;
+  }
+
+  private getFormData() {
+    this.taskService.getFormData(this.taskId).subscribe(res => {
+      console.log(res);
+      this.formFields = res.formFields;
+
+    });
   }
 
 

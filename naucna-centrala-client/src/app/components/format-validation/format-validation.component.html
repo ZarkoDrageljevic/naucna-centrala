@@ -20,6 +20,9 @@
       <input *ngIf="field.name === 'isFormated'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="Formated" value=true>
       <label *ngIf="field.name === 'isFormated'">Not OK</label>
       <input *ngIf="field.name === 'isFormated'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="Not Formated" value=false>
+      <label *ngIf="field.name === 'formatComment'">Add Comment for format correction</label>
+      <textarea *ngIf="field.name === 'formatComment'" class="form-control" [(ngModel)]="field.value.value" name="abstract" required ></textarea>
+
     </div>
     <br>
     <button id="formatBtn" [disabled]="format.form.invalid" class="btn btn-lg btn-primary btn-block"

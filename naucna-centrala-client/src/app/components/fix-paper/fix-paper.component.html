@@ -21,6 +21,9 @@
     <input type="file" class="form-control-file" (change)="fileChange($event)" accept=".pdf">
     <input type="hidden" [(ngModel)]="file" name="file" required>
     <br/>
+    <label> Answer to comments</label>
+    <textarea class="form-control" [(ngModel)]="commentAnswer" name="commentanswer" required></textarea>
+    <br/>
     <button [disabled]="paperForm.form.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Submit
       paper revision
     </button>

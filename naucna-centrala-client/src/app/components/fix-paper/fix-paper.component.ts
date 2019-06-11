@@ -19,6 +19,7 @@ export class FixPaperComponent implements OnInit {
   reviews = new Array<Review>();
 
   taskId: string;
+  commentAnswer: string;
 
   constructor(private paperService: PaperService,
               private scienceFieldService: ScienceFieldService,
@@ -43,12 +44,6 @@ export class FixPaperComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
-  private getReviews() {
-    this.paperService.getPaperReviews(this.taskId).subscribe(result => {
-      this.reviews = result;
-    });
-  }
-
   create() {
     let formData: FormData = this.prepareFormData();
     this.paperService.submitRevision(this.taskId, formData).subscribe(result => {
@@ -61,7 +56,14 @@ export class FixPaperComponent implements OnInit {
     let formData = new FormData();
     formData.append('file', this.file);
     formData.append('data', new Blob([JSON.stringify(this.paper)], {type: 'application/json'}));
+    formData.append('commentAnswer', new Blob([JSON.stringify(this.commentAnswer)], {type: 'application/json'}));
     return formData;
+  }
+
+  private getReviews() {
+    this.paperService.getPaperReviews(this.taskId).subscribe(result => {
+      this.reviews = result;
+    });
   }
 
 

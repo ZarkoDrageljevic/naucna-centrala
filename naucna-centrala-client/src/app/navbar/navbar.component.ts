@@ -33,7 +33,8 @@ export class NavbarComponent implements OnInit {
 
   startSubmissionProcess() {
     this.paperService.startPaperProcess().subscribe(res => {
-      this.router.navigate(['task']);
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+        this.router.navigate(['task']));
       this.ngOnInit();
     });
   }
@@ -41,5 +42,10 @@ export class NavbarComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.router.navigateByUrl('login');
+  }
+
+  redirectToTask() {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate(['task']));
   }
 }
