@@ -48,15 +48,28 @@ public class PopulateDB implements ApplicationRunner {
         Editor magazine2editor1 = applicationUserRepository.save(createeditor(13L, "adresa", "MyTestEmailEditor21@mailinator.com", "Vuk", "Vukic", "123", UserRole.EDITOR, "Magazine2Editor1", true));
         Editor magazine2editor2 = applicationUserRepository.save(createeditor(14L, "adresa", "MyTestEmailEditor22@mailinator.com", "Milan", "Milanovic", "123", UserRole.EDITOR, "Magazine2Editor2", true));
 
+        Reviewer reviewer4 = applicationUserRepository.save(createRewever(15L, "adresa", "SP1@mailinator.com", "SAMOPRVI1", "HEMICAR-BIOLOG", "123", UserRole.REVIEWER, "SP1", true));
+        Reviewer reviewer5 = applicationUserRepository.save(createRewever(16L, "adresa", "SP2@mailinator.com", "SAMOPRVI2", "MATEMATIKA-PROGRAMIRANJE", "123", UserRole.REVIEWER, "SP2", true));
+        Reviewer reviewer6 = applicationUserRepository.save(createRewever(17L, "adresa", "SP3@mailinator.com", "SAMOPRVI3", "MATEMATIKA", "123", UserRole.REVIEWER, "SP3", true));
 
-        Magazine magazine1 = magazineRepository.save(createMagazine(1L, "Magazin1", true, editor1, Arrays.asList(reviewer1, reviewer2, reviewer3), Arrays.asList(applicationUser1, applicationUser2)));
-        Magazine magazine2 = magazineRepository.save(createMagazine(2L, "Magazin2", false, editor2, Arrays.asList(reviewer1, reviewer2, reviewer3), Arrays.asList(applicationUser1, applicationUser2)));
-        Magazine magazine3 = magazineRepository.save(createMagazine(3L, "Magazin3", true, editor3, Arrays.asList(reviewer1, reviewer2, reviewer3), Arrays.asList(applicationUser3, applicationUser4)));
+        Reviewer reviewer7 = applicationUserRepository.save(createRewever(18L, "adresa", "SD1@mailinator.com", "SAMODRUGI1", "HEMICAR-BIOLOG", "123", UserRole.REVIEWER, "SD1", true));
+        Reviewer reviewer8 = applicationUserRepository.save(createRewever(19L, "adresa", "SD2@mailinator.com", "SAMODRUGI2", "MATEMATIKA-PROGRAMIRANJE", "123", UserRole.REVIEWER, "SD2", true));
+        Reviewer reviewer9 = applicationUserRepository.save(createRewever(20L, "adresa", "SD3@mailinator.com", "SAMODRUGI3", "MATEMATIKA", "123", UserRole.REVIEWER, "SD3", true));
 
-        ScientificField scientificField1 = scientificFieldRepository.save(createScientificField(1L, "Matematika", Arrays.asList(reviewer1, reviewer2)));
-        ScientificField scientificField2 = scientificFieldRepository.save(createScientificField(2L, "Programiranje", Arrays.asList(reviewer1, reviewer2)));
-        ScientificField scientificField3 = scientificFieldRepository.save(createScientificField(3L, "Biologija", Arrays.asList(reviewer3, reviewer2)));
-        ScientificField scientificField4 = scientificFieldRepository.save(createScientificField(4L, "Hemija", Arrays.asList(reviewer2)));
+
+        Reviewer reviewer10 = applicationUserRepository.save(createRewever(21L, "adresa", "ST1@mailinator.com", "SAMOTRECI1", "HEMICAR-BIOLOG", "123", UserRole.REVIEWER, "ST1", true));
+        Reviewer reviewer11 = applicationUserRepository.save(createRewever(22L, "adresa", "ST2@mailinator.com", "SAMOTRECI2", "MATEMATIKA-PROGRAMIRANJE", "123", UserRole.REVIEWER, "ST2", true));
+        Reviewer reviewer12 = applicationUserRepository.save(createRewever(23L, "adresa", "ST3@mailinator.com", "SAMOTRECI3", "MATEMATIKA", "123", UserRole.REVIEWER, "ST3", true));
+
+
+        Magazine magazine1 = magazineRepository.save(createMagazine(1L, "Magazin1", true, editor1, Arrays.asList(reviewer1, reviewer2, reviewer3, reviewer4, reviewer5, reviewer6), Arrays.asList(applicationUser1, applicationUser2)));
+        Magazine magazine2 = magazineRepository.save(createMagazine(2L, "Magazin2", false, editor2, Arrays.asList(reviewer1, reviewer2, reviewer3, reviewer7, reviewer8, reviewer9), Arrays.asList(applicationUser1, applicationUser2)));
+        Magazine magazine3 = magazineRepository.save(createMagazine(3L, "Magazin3", true, editor3, Arrays.asList(reviewer1, reviewer2, reviewer3, reviewer10, reviewer11, reviewer12), Arrays.asList(applicationUser3, applicationUser4)));
+
+        ScientificField scientificField1 = scientificFieldRepository.save(createScientificField(1L, "Matematika", Arrays.asList(reviewer1, reviewer2, reviewer5, reviewer6, reviewer8, reviewer9, reviewer11, reviewer12)));
+        ScientificField scientificField2 = scientificFieldRepository.save(createScientificField(2L, "Programiranje", Arrays.asList(reviewer1, reviewer2, reviewer5, reviewer8, reviewer11)));
+        ScientificField scientificField3 = scientificFieldRepository.save(createScientificField(3L, "Biologija", Arrays.asList(reviewer3, reviewer2, reviewer4, reviewer7, reviewer10)));
+        ScientificField scientificField4 = scientificFieldRepository.save(createScientificField(4L, "Hemija", Arrays.asList(reviewer2, reviewer4, reviewer7, reviewer10)));
 
         MagazineEditor magazineEditor1 = magazineEditorRepository.save(createMagazineEditor(1L, magazine1editor1, magazine1, Arrays.asList(scientificField1, scientificField2)));
         MagazineEditor magazineEditor2 = magazineEditorRepository.save(createMagazineEditor(2L, magazine1editor2, magazine1, Arrays.asList(scientificField3, scientificField4)));
