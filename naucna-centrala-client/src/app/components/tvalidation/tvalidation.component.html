@@ -16,10 +16,10 @@
   <form class="col-md-8 form" (ngSubmit)="submitTvalidationAnswer()" #tvalidation="ngForm">
     <h2 class="form-heading">Is This Paper Thematicaly Ok</h2>
     <div class=""  *ngFor="let field of formFields">
-      <label *ngIf="field.name === 'thematicalyOk'">Ok</label>
-      <input *ngIf="field.name === 'thematicalyOk'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="OK" value=true>
-      <label *ngIf="field.name === 'thematicalyOk'">Not OK</label>
-      <input *ngIf="field.name === 'thematicalyOk'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="NotOk" value=false>
+      <label for="TOK" *ngIf="field.name === 'thematicalyOk'">Ok</label>
+      <input id = "TOK" *ngIf="field.name === 'thematicalyOk'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="OK" value=true>
+      <label for="TNOK" *ngIf="field.name === 'thematicalyOk'">Not OK</label>
+      <input id = "TNOK" *ngIf="field.name === 'thematicalyOk'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="NotOk" value=false>
     </div>
     <br>
     <button id="tvalidationBtn" [disabled]="tvalidation.form.invalid" class="btn btn-lg btn-primary btn-block"

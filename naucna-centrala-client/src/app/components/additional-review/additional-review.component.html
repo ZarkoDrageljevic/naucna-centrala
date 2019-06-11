@@ -31,7 +31,7 @@
           class="float-right fa fa-trash fa-2x icon-pad pointer" (click)="removeReviewer(rev)">
           </span></p>
       </li>
-      <button [disabled]="chosenReviewers.length !== 1" class="btn btn-lg btn-primary btn-block"
+      <button [disabled]="chosenReviewers.length < 1" class="btn btn-lg btn-primary btn-block"
               (click)="submit()">Submit choose
       </button>
     </ul>

@@ -23,7 +23,7 @@ public class CheckScientificEditorTask implements JavaDelegate {
         String magazineId = (String) delegateExecution.getVariable("magazineId");
         final Magazine magazine = magazineService.getMagazine(Long.parseLong(magazineId));
         String paperId = (String) delegateExecution.getVariable("paperId");
-        final Paper paper = paperService.getPaperWithDetails(Long.parseLong(magazineId));
+        final Paper paper = paperService.getPaperWithDetails(Long.parseLong(paperId));
 
         Optional<MagazineEditor> any = magazine.getMagazineEditors().stream().filter(magazineEditor ->
                 magazineEditor.getScientificFields().contains(paper.getScientificField())).findFirst();

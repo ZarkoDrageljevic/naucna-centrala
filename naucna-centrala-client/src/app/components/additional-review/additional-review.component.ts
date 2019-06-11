@@ -41,6 +41,8 @@ export class AdditionalReviewComponent implements OnInit {
     this.paperService.chooseReviewers(this.taskId, formData).subscribe(result => {
       this.toastr.success('Reviewers Chosen');
       this.router.navigate(['task']);
+    }, error1 => {
+      this.toastr.error(error1.error.message);
     });
   }
 
