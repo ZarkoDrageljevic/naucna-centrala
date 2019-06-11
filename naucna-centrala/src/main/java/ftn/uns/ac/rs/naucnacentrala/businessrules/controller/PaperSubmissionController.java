@@ -14,12 +14,16 @@ import ftn.uns.ac.rs.naucnacentrala.businessrules.services.utils.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.rest.dto.VariableValueDto;
 import org.camunda.bpm.engine.rest.dto.task.TaskDto;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -244,6 +248,20 @@ public class PaperSubmissionController {
         ).collect(Collectors.toList());
         processService.submitTaskForm(taskId, formFieldDtos);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/download/{taskId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String taskId, HttpServletRequest request) throws Exception {
+        final TaskDto task = processService.getTask(taskId);
+        final String paperId = (String) processService.getVariable(task.getProcessInstanceId(), "paperId");
+        Resource resource = paperService.loadFileAsResource(Long.parseLong(paperId));
+        String contentType;
+        contentType = "application/octet-stream";
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
     }
 
 }

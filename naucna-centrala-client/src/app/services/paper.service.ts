@@ -83,4 +83,9 @@ export class PaperService {
     return this.http.post(`${this.baseUrl}/payment/${taskId}`, array);
 
   }
+
+  downloadPaper(taskId: string) {
+    return this.http.post(`${this.baseUrl}/download/${taskId}`, Object(), { responseType: 'blob' });
+
+  }
 }

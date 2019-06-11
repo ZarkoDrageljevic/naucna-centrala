@@ -1,5 +1,8 @@
 <div *ngIf="paper" class="card col-md-12 align-content-center border-info">
-  <div class="card-header bg-info form-heading" style="width: 100%">Paper details</div>
+  <div class="card-header bg-info form-heading" style="width: 100%">Paper details
+    <button class="float-right btn btn-sm btn-warning" (click)="download()">Download
+      <span class="float-right fa fa-file-pdf-o icon-pad pointer"></span></button>
+  </div>
   <div class="card-body">
     <h3>Title</h3>
     <p>{{paper.title}}</p>
@@ -15,13 +18,16 @@
   <div class="col-md-8"></div>
   <form class="col-md-8 form" (ngSubmit)="submitFormatAnswer()" #format="ngForm">
     <h2 class="form-heading">Is This Paper Formated </h2>
-    <div class=""  *ngFor="let field of formFields">
+    <div class="" *ngFor="let field of formFields">
       <label *ngIf="field.name === 'isFormated'">Ok</label>
-      <input *ngIf="field.name === 'isFormated'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="Formated" value=true>
+      <input *ngIf="field.name === 'isFormated'" type="radio" class="form-control" [(ngModel)]="field.value.value"
+             name="Formated" value=true>
       <label *ngIf="field.name === 'isFormated'">Not OK</label>
-      <input *ngIf="field.name === 'isFormated'"  type="radio" class="form-control" [(ngModel)]="field.value.value" name="Not Formated" value=false>
+      <input *ngIf="field.name === 'isFormated'" type="radio" class="form-control" [(ngModel)]="field.value.value"
+             name="Not Formated" value=false>
       <label *ngIf="field.name === 'formatComment'">Add Comment for format correction</label>
-      <textarea *ngIf="field.name === 'formatComment'" class="form-control" [(ngModel)]="field.value.value" name="abstract" required ></textarea>
+      <textarea *ngIf="field.name === 'formatComment'" class="form-control" [(ngModel)]="field.value.value"
+                name="abstract" required></textarea>
 
     </div>
     <br>

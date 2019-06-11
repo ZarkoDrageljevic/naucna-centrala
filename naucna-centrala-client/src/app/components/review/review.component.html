@@ -1,5 +1,8 @@
 <div *ngIf="paper" class="card col-md-12 align-content-center border-info">
-  <div class="card-header bg-info form-heading" style="width: 100%">Paper details</div>
+  <div class="card-header bg-info form-heading" style="width: 100%">Paper details
+    <button class="float-right btn btn-sm btn-warning" (click)="download()">Download
+      <span class="float-right fa fa-file-pdf-o icon-pad pointer"></span></button>
+  </div>
   <div class="card-body">
     <h3>Title</h3>
     <p>{{paper.title}}</p>

@@ -399,7 +399,9 @@
       <bpmn:sequenceFlow id="SequenceFlow_0mlp286" sourceRef="ExclusiveGateway_02l701c" targetRef="ServiceTask_0bhwyzc">
         <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isScientificEditorPresent}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
-      <bpmn:sequenceFlow id="SequenceFlow_0pexqzk" sourceRef="ExclusiveGateway_0mxi526" targetRef="ChooseReviewers" />
+      <bpmn:sequenceFlow id="SequenceFlow_0pexqzk" sourceRef="ExclusiveGateway_0mxi526" targetRef="ChooseReviewers">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${decision== "additionalReviewer"}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
     </bpmn:subProcess>
     <bpmn:boundaryEvent id="BoundaryEvent_0len0el" cancelActivity="false" attachedToRef="SubProcess_00u4y92">
       <bpmn:outgoing>SequenceFlow_1waf4mj</bpmn:outgoing>

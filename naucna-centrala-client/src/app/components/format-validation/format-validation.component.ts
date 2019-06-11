@@ -5,6 +5,8 @@ import {PaperService} from '../../services/paper.service';
 import {TaskService} from '../../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
+import * as FileSaver from "file-saver"
+
 
 @Component({
   selector: 'app-format-validation',
@@ -52,4 +54,16 @@ export class FormatValidationComponent implements OnInit {
 
     });
   }
+
+  download() {
+    this.paperService.downloadPaper(this.taskId).subscribe(res => {this.downloadFile(res)}, error1 => {
+      this.toastrService.error(error1.error.message);
+    });
+  }
+
+  downloadFile(data) {
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+    FileSaver.saveAs(blob, `${this.paper.title}.pdf`);
+  }
+
 }

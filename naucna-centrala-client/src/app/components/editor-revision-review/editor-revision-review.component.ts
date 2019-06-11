@@ -5,6 +5,8 @@ import {PaperService} from '../../services/paper.service';
 import {TaskService} from '../../services/task.service';
 import {Paper} from '../../model/paper';
 import {FormField} from '../../model/form-field';
+import * as FileSaver from "file-saver"
+
 
 @Component({
   selector: 'app-editor-revision-review',
@@ -51,4 +53,16 @@ export class EditorRevisionReviewComponent implements OnInit {
       this.formFields = res.formFields;
     });
   }
+
+  download() {
+    this.paperService.downloadPaper(this.taskId).subscribe(res => {this.downloadFile(res)}, error1 => {
+      this.toastrService.error(error1.error.message);
+    });
+  }
+
+  downloadFile(data) {
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+    FileSaver.saveAs(blob, `${this.paper.title}.pdf`);
+  }
+
 }

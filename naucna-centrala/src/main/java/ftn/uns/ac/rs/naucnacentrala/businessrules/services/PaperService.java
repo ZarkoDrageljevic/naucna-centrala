@@ -11,11 +11,15 @@ import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.ReviewerRepository;
 import ftn.uns.ac.rs.naucnacentrala.businessrules.repository.ScientificFieldRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.ws.rs.BadRequestException;
 import java.io.FileOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -130,4 +134,21 @@ public class PaperService {
         paperRepository.save(paper);
 
     }
+
+    public Resource loadFileAsResource(long paperId) throws Exception {
+        Paper paper = paperRepository.getOne(paperId);
+        try {
+            Path filePath = Paths.get("src/main/resources/uploadedfiles/"+ paper.getTitle());
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new Exception("File not found " + paper.getTitle());
+            }
+        } catch (Exception ex) {
+            throw new Exception("File not found " + paper.getTitle(), ex);
+        }
+    }
+
+
 }
